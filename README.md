@@ -9,3 +9,4 @@
 21. Spring Cloud Gateway의 소개<br/>
     - Spring Cloud Gateway Webmvc<br/>
     <img width="2093" height="1163" alt="image" src="https://github.com/user-attachments/assets/e979d6ee-95df-4d45-81c7-236c0e2708eb" />
+24. Webflux를 위한 Spring Cloud Gateway
