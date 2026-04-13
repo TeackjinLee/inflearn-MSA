@@ -1,21 +1,52 @@
 server:
   port: 8000
 
+# <artifactId>spring-cloud-starter-gateway-server-webflux</artifactId>? ??
+#spring:
+#  application:
+#    name: apigateway-service
+#  cloud:
+#    gateway:
+#      server:
+#        webmvc:
+#          routes:
+#            - id: first-service
+#              uri: http://localhost:8081
+#              predicates:
+#                - Path=/first-service/**
+#            - id: second-service
+#              uri: http://localhost:8082
+#              predicates:
+#                - Path=/second-service/**
+
+# webflux
+eureka:
+  client:
+    register-with-eureka: true   # Eureka ??? ??
+    fetch-registry: true         # ?? ??? ?? ????
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+
 spring:
   application:
     name: apigateway-service
   cloud:
     gateway:
       server:
-        webmvc:
+        webflux:
           routes:
             - id: first-service
               uri: http://localhost:8081
               predicates:
                 - Path=/first-service/**
+              filters:
+                - AddRequestHeader=f-request, 1st-request-header-by-yaml
+                - AddRequestHeader=f-response, 1st-response-header-from-yaml
             - id: second-service
               uri: http://localhost:8082
               predicates:
                 - Path=/second-service/**
-
-
+              filters:
+                - AddRequestHeader=s-request, 1nd-request-header-by-yaml
+                - AddRequestHeader=s-response, 1nd-response-header-from-yaml

@@ -37,9 +37,16 @@ public class FirstServiceController {
         return "Hello World in First Service.";
     }
 
+    @GetMapping
+    public String message2(@RequestHeader("f-request2") String header2) {
+        log.info(header2);
+        return "Hello World in First Service2.";
+    }
+
     @GetMapping("/check")
     public String check(HttpServletRequest request) {
         log.info("Server port={}", request.getServerPort());
+        log.info("request:::", request);
 
         return String.format("Hi, there. This is a message from First Service on PORT %s"
                 , env.getProperty("local.server.port"));
