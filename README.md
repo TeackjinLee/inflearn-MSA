@@ -38,3 +38,5 @@ spring:
               filters:
                 - AddRequestHeader=s-request, 1nd-request-header-by-yaml
                 - AddRequestHeader=s-response, 1nd-response-header-from-yaml
+
+27. Spring Cloud Gateway - Custom Filter 적용 ➀
