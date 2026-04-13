@@ -15,3 +15,26 @@
 <img width="2140" height="1346" alt="image" src="https://github.com/user-attachments/assets/e086e196-6adc-4dc9-93ec-3f08be929616" />
 8000포트로 호출시 에러 안남 그러나 8081이나 8082로 호출시 에러
 26. Spring Cloud Gateway - Filter 적용 ➁
+
+spring:
+  application:
+    name: apigateway-service
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: first-service
+              uri: http://localhost:8081
+              predicates:
+                - Path=/first-service/**
+              filters:
+                - AddRequestHeader=f-request, 1st-request-header-by-yaml
+                - AddRequestHeader=f-response, 1st-response-header-from-yaml
+            - id: second-service
+              uri: http://localhost:8082
+              predicates:
+                - Path=/second-service/**
+              filters:
+                - AddRequestHeader=s-request, 1nd-request-header-by-yaml
+                - AddRequestHeader=s-response, 1nd-response-header-from-yaml
