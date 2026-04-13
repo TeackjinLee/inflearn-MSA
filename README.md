@@ -38,5 +38,6 @@ spring:
               filters:
                 - AddRequestHeader=s-request, 1nd-request-header-by-yaml
                 - AddRequestHeader=s-response, 1nd-response-header-from-yaml
-
+Filter - Custom,Global, Logging Filter들은 어느 위치에 지정되냐에 따라 달라짐.
 27. Spring Cloud Gateway - Custom Filter 적용 ➀
+    
