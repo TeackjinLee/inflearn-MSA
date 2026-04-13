@@ -14,3 +14,4 @@
 <img width="2131" height="1326" alt="image" src="https://github.com/user-attachments/assets/55641036-eb2b-49e9-be51-2c02836d09a7" />
 <img width="2140" height="1346" alt="image" src="https://github.com/user-attachments/assets/e086e196-6adc-4dc9-93ec-3f08be929616" />
 8000포트로 호출시 에러 안남 그러나 8081이나 8082로 호출시 에러
+26. Spring Cloud Gateway - Filter 적용 ➁
