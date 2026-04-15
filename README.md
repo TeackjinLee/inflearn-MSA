@@ -51,3 +51,6 @@ Filter - Custom,Global, Logging Filter들은 어느 위치에 지정되냐에 �
 
 32. Spring Cloud Gateway - Logging Filter 적용 ➁
 <img width="1440" height="814" alt="image" src="https://github.com/user-attachments/assets/806c7970-bba2-4174-855a-27ce6daed609" />
+
+<img width="1432" height="878" alt="image" src="https://github.com/user-attachments/assets/b562282e-c92c-4d3a-b9ef-67350076c090" />
+
