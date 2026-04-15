@@ -3,6 +3,7 @@ package com.dogmeeting.apigatewayservice.filter;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
+import org.springframework.cloud.gateway.filter.OrderedGatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -16,9 +17,31 @@ public class LoggingFilter extends AbstractGatewayFilterFactory<LoggingFilter.Co
     public LoggingFilter() { super(Config.class); }
 
 
+//    @Override
+//    public GatewayFilter apply(Config config) {
+//        return (exchange, chain) -> {
+//            ServerHttpRequest request = exchange.getRequest();
+//            ServerHttpResponse response = ex change.getResponse();
+//            // Logging Pre Filter
+//            log.info("Logging Filter baseMessage: {}, {}", config.getBaseMessage(), request.getRemoteAddress());
+//
+//            if (config.isPreLogger()) {
+//                log.info("Logging Filter: request uri -> {}", request.getURI());
+//            }
+//
+//            return chain.filter(exchange).then(Mono.fromRunnable(() -> {
+//                // Logging Post Filter
+//                if (config.isPostLogger()) {
+//                    log.info("Logging Filter End: response code -> {}", response.getStatusCode());
+//                }
+//            }));
+//        };
+//    }
+
+    /* 우선 순위를 갖는 Loggin Filter 적용 */
     @Override
     public GatewayFilter apply(Config config) {
-        return (exchange, chain) -> {
+        GatewayFilter filter = new OrderedGatewayFilter((exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
             ServerHttpResponse response = exchange.getResponse();
             // Logging Pre Filter
@@ -34,7 +57,9 @@ public class LoggingFilter extends AbstractGatewayFilterFactory<LoggingFilter.Co
                     log.info("Logging Filter End: response code -> {}", response.getStatusCode());
                 }
             }));
-        };
+        }, OrderedGatewayFilter.HIGHEST_PRECEDENCE);
+
+        return filter;
     }
 
     @Data
