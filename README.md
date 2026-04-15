@@ -47,3 +47,7 @@ Filter - Custom,Global, Logging Filter들은 어느 위치에 지정되냐에 �
 2026-04-15T08:26:21.567+09:00 ERROR 15125 --- [apigateway-service] [ctor-http-nio-2] i.n.r.d.DnsServerAddressStreamProviders  : Unable to load io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'. Use DEBUG level to see the full stack: java.lang.UnsatisfiedLinkError: failed to load the required native library
 2026-04-15T08:26:21.607+09:00  INFO 15125 --- [apigateway-service] [ctor-http-nio-2] c.d.a.filter.CustomFilter                : Custom PRE Filter: request id -> 200 OK
 2026-04-15T08:26:21.607+09:00  INFO 15125 --- [apigateway-service] [ctor-http-nio-2] c.d.a.filter.GlobalFilter                : Global Filter End: response code -> 200 OK
+
+
+32. Spring Cloud Gateway - Logging Filter 적용 ➁
+<img width="1440" height="814" alt="image" src="https://github.com/user-attachments/assets/806c7970-bba2-4174-855a-27ce6daed609" />
