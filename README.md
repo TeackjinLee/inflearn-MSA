@@ -55,4 +55,6 @@ Filter - Custom,Global, Logging Filter들은 어느 위치에 지정되냐에 �
 <img width="1432" height="878" alt="image" src="https://github.com/user-attachments/assets/b562282e-c92c-4d3a-b9ef-67350076c090" />
 
 # SESSION_4. E-commerce 애플리케이션
+35. E-commerce 애플리케이션 개요
+<img width="1469" height="832" alt="image" src="https://github.com/user-attachments/assets/89fee070-b789-4331-aec5-11b5d8c7fefa" />
 
