@@ -66,3 +66,9 @@ Message Broker - Kafka
 <img width="1455" height="817" alt="image" src="https://github.com/user-attachments/assets/5d405a6e-3733-4385-beaf-7bd270b5590c" />
 
 # SESSION_5. Users Microservice ➀
+    섹션소개
+    - Users Microservice 개요
+    - Users Microservice - 프로젝트 생성
+    - Users Microservice - DB
+    - Users Microservice - 회원가입
+    - Users Microservice - Security
