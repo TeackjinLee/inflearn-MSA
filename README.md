@@ -58,3 +58,9 @@ Filter - Custom,Global, Logging Filter들은 어느 위치에 지정되냐에 �
 35. E-commerce 애플리케이션 개요
 <img width="1469" height="832" alt="image" src="https://github.com/user-attachments/assets/89fee070-b789-4331-aec5-11b5d8c7fefa" />
 
+36. E-commerce 애플리케이션 구성
+<img width="1693" height="844" alt="image" src="https://github.com/user-attachments/assets/5a286a0d-9798-4242-9577-cc1b03c65fd2" />
+<img width="1445" height="812" alt="image" src="https://github.com/user-attachments/assets/e6c87cc1-5916-421f-9c43-5e34c10aac56" />
+Message Broker - Kafka
+
+<img width="1455" height="817" alt="image" src="https://github.com/user-attachments/assets/5d405a6e-3733-4385-beaf-7bd270b5590c" />
