@@ -72,3 +72,6 @@ Message Broker - Kafka
     - Users Microservice - DB
     - Users Microservice - 회원가입
     - Users Microservice - Security
+38. Users Microservice 개요
+<img width="1467" height="824" alt="image" src="https://github.com/user-attachments/assets/c3155344-ba54-4f79-bfb1-5eb3af3aec32" />
+
