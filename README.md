@@ -77,4 +77,6 @@ Message Broker - Kafka
 
 <img width="1467" height="831" alt="image" src="https://github.com/user-attachments/assets/4768460e-50c7-4571-b213-a3914fd67aea" />
 
+41. Users Microservice - 사용자 추가 개요 (JPA)
+<img width="1457" height="822" alt="image" src="https://github.com/user-attachments/assets/ccd836a9-bf78-48cb-9270-528db239255e" />
 
