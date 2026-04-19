@@ -75,3 +75,6 @@ Message Broker - Kafka
 38. Users Microservice 개요
 <img width="1467" height="824" alt="image" src="https://github.com/user-attachments/assets/c3155344-ba54-4f79-bfb1-5eb3af3aec32" />
 
+<img width="1467" height="831" alt="image" src="https://github.com/user-attachments/assets/4768460e-50c7-4571-b213-a3914fd67aea" />
+
+
