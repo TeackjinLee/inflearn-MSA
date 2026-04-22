@@ -1,4 +1,4 @@
-package com.dogmeeting.userservice.vo;
+package com.dogmeeting.userService.vo;
 
 import lombok.Data;
 

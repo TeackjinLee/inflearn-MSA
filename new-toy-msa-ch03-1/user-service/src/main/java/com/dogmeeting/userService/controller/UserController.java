@@ -1,29 +1,32 @@
-package com.dogmeeting.userservice.controller;
+package com.dogmeeting.userService.controller;
 
-import com.dogmeeting.userservice.vo.GreetingVo;
+import com.dogmeeting.userService.dto.UserDto;
+import com.dogmeeting.userService.service.UserService;
+import com.dogmeeting.userService.vo.RequestUser;
+import com.dogmeeting.userService.vo.GreetingVo;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/")
-@AllArgsConstructor
 @Slf4j
 public class UserController {
 
     private Environment env;
+    private UserService userService;
+
+    @Autowired
     private GreetingVo greetingVo;
 
-//    @Autowired
-//    public UserController(Environment env, GreetingVo greetingVo) {
-//        this.env = env;
-//        this.greetingVo = greetingVo;
-//    }
+    public UserController(Environment env, UserService userService) {
+        this.env = env;
+        this.userService = userService;
+    }
 
     @GetMapping("/health-check")
     public String status(){
@@ -40,5 +43,14 @@ public class UserController {
         return  greetingVo.getMessage();
     }
 
+    @PostMapping("/users")
+    public String createUser(@RequestBody RequestUser user){
+        ModelMapper mapper = new ModelMapper();
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
+        UserDto userDto = mapper.map(user, UserDto.class);
+        userService.createUser(userDto);
+
+        return "Create user method is called.";
+    }
 }
