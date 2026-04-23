@@ -4,12 +4,15 @@ import com.dogmeeting.userService.dto.UserDto;
 import com.dogmeeting.userService.service.UserService;
 import com.dogmeeting.userService.vo.RequestUser;
 import com.dogmeeting.userService.vo.GreetingVo;
+import com.dogmeeting.userService.vo.ResponseUser;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -44,13 +47,15 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public String createUser(@RequestBody RequestUser user){
+    public ResponseEntity createUser(@RequestBody RequestUser user){
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         UserDto userDto = mapper.map(user, UserDto.class);
         userService.createUser(userDto);
 
-        return "Create user method is called.";
+        ResponseUser responseUser = mapper.map(userDto, ResponseUser.class);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
     }
 }
