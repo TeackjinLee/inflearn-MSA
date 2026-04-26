@@ -80,3 +80,6 @@ Message Broker - Kafka
 41. Users Microservice - 사용자 추가 개요 (JPA)
 <img width="1457" height="822" alt="image" src="https://github.com/user-attachments/assets/ccd836a9-bf78-48cb-9270-528db239255e" />
 
+45. Users Microservice - Spring Security 연동
+<img width="2169" height="1234" alt="image" src="https://github.com/user-attachments/assets/ef57ebfd-c8d5-41d1-8528-c77e35593c83" />
+
