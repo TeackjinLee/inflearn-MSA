@@ -83,3 +83,22 @@ Message Broker - Kafka
 45. Users Microservice - Spring Security 연동
 <img width="2169" height="1234" alt="image" src="https://github.com/user-attachments/assets/ef57ebfd-c8d5-41d1-8528-c77e35593c83" />
 
+# SESSION_6. Catalogs and Orders Microservice
+49. 섹션 소개
+    - Users Microservice 기능추가
+    - Catalogs Microservice 프로젝트 생성
+    - Orders Microservice 프로젝트 생성
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
