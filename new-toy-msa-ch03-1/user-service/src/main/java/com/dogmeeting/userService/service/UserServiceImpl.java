@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -19,10 +20,12 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 //    @Autowired
-//    public UserServiceImpl(UserRepository userRepository) {
+//    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
 //        this.userRepository = userRepository;
+//        this.BCryptPasswordEncoder = bCryptPasswordEncoder;
 //    }
 
     @Override
@@ -32,7 +35,8 @@ public class UserServiceImpl implements UserService {
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         UserEntity userEntity = mapper.map(userDto, UserEntity.class);
-        userEntity.setEncryptedPassword("encrypted_password");
+//        userEntity.setEncryptedPassword("encrypted_password");
+        userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(userDto.getPwd()));
 
         userRepository.save(userEntity);
 
