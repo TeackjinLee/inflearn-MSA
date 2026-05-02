@@ -46,7 +46,7 @@ spring:
               uri: lb://USER-SERVICE
               predicates:
                 - Path=/user-service/**
-            - id: first-service
+            - id: first-service1
               #uri: http://localhost:8081
               uri: lb://MY-FIRST-SERVICE
               predicates:
