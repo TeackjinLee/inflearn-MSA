@@ -1,8 +1,10 @@
 package com.dogmeeting.userService.dto;
 
+import com.dogmeeting.userService.vo.ResponseOrder;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class UserDto {
@@ -14,4 +16,5 @@ public class UserDto {
 
     private String encryptedPwd;
 
+    private List<ResponseOrder> orders;
 }
