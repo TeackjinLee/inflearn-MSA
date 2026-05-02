@@ -88,9 +88,15 @@ Message Broker - Kafka
     - Users Microservice 기능추가
     - Catalogs Microservice 프로젝트 생성
     - Orders Microservice 프로젝트 생성
-
-
-
+50. Users Microservice - 사용자 조회 ①
+51. Users Microservice와 Spring Cloud Gateway
+52. Users Microservice와 Spring Cloud Gateway
+    -     routes: #customFilter
+            - id: user-service
+              uri: lb://USER-SERVICE
+              predicates:
+                - Path=/user-service/**
+    - @RequestMapping("/user-service") => 일괄 작업
 
 
 
