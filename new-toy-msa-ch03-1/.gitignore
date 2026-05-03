@@ -33,3 +33,4 @@ build/
 
 ## etc ##
 /.gradle/
+*.bin
