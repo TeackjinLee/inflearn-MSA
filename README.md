@@ -1,4 +1,4 @@
-
+<img width="1485" height="848" alt="image" src="https://github.com/user-attachments/assets/bac18424-f3d8-44bf-b283-28a9ca030325" />
 # inflearn-MSA
 # SESSION_3. API Gateway Service
 17. User Service - 프로젝트 생성
@@ -98,12 +98,37 @@ Message Broker - Kafka
                 - Path=/user-service/**
     - @RequestMapping("/user-service") => 일괄 작업
 
+54. Catalogs Microservice - 개요
+<img width="1485" height="848" alt="image" src="https://github.com/user-attachments/assets/e737af66-ee66-433b-8cde-0727ce0c4e28" />
+<img width="1459" height="613" alt="image" src="https://github.com/user-attachments/assets/41671e4c-cab5-4ef9-be57-cb9eea3ff665" />
 
-
-
-
-
-
+<img width="1466" height="831" alt="image" src="https://github.com/user-attachments/assets/9d7fcf69-0fae-446e-847f-4d825a8873f8" />
+- 재실행시 상품의 초기 데이터 생성
+- 
+56. Catalogs Microservice - 기능 구현 ②
+aip-gateway의 application.yml에 catalog-service 추가 작업
+spring:
+  application:
+    name: apigateway-service
+  cloud:
+    gateway:
+      server:
+        webflux:
+          default-filters:
+            - name: GlobalFilter
+              args:
+                baseMessage: Spring Cloud Gateway WebFlux Global Filter
+                preLogger: true
+                postLogger: true
+          routes: #customFilter
+            - id: user-service
+              uri: lb://USER-SERVICE
+              predicates:
+                - Path=/user-service/**
+            - id: catalog-service
+              uri: lb://CATALOG-SERVICE
+              predicates:
+                - Path=/catalog-service/**
 
 
 
