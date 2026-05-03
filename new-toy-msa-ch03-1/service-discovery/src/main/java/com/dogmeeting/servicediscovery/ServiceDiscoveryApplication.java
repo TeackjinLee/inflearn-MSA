@@ -1,4 +1,4 @@
-package com.example.servicediscovery;
+package com.dogmeeting.servicediscovery;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

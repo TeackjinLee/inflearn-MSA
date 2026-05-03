@@ -1,4 +1,4 @@
-package com.example.servicediscovery;
+package com.dogmeeting.servicediscovery;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
