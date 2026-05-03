@@ -130,6 +130,6 @@ spring:
               predicates:
                 - Path=/catalog-service/**
 
-
+# SESSION_7. Users Microservice_1
 
     
