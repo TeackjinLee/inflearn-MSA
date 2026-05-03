@@ -1,7 +1,7 @@
-package com.example.orderservice.service;
+package com.dogmeeting.orderservice.service;
 
-import com.example.orderservice.dto.OrderDto;
-import com.example.orderservice.jpa.OrderEntity;
+import com.dogmeeting.orderservice.dto.OrderDto;
+import com.dogmeeting.orderservice.jpa.OrderEntity;
 
 public interface OrderService {
     OrderDto createOrder(OrderDto orderDetails);

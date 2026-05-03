@@ -1,4 +1,4 @@
-package com.example.orderservice.dto;
+package com.dogmeeting.orderservice.dto;
 
 import lombok.Data;
 

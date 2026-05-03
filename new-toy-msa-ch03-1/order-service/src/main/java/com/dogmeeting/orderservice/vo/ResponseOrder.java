@@ -1,4 +1,4 @@
-package com.example.orderservice.vo;
+package com.dogmeeting.orderservice.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;

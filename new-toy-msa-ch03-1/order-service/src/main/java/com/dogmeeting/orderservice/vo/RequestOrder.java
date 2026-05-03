@@ -1,4 +1,4 @@
-package com.example.orderservice.vo;
+package com.dogmeeting.orderservice.vo;
 
 import lombok.Data;
 

@@ -1,8 +1,9 @@
-package com.example.orderservice.service;
+package com.dogmeeting.orderservice.service;
 
-import com.example.orderservice.dto.OrderDto;
-import com.example.orderservice.jpa.OrderEntity;
-import com.example.orderservice.jpa.OrderRepository;
+import com.dogmeeting.orderservice.dto.OrderDto;
+import com.dogmeeting.orderservice.jpa.OrderEntity;
+import com.dogmeeting.orderservice.jpa.OrderRepository;
+import com.dogmeeting.orderservice.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;

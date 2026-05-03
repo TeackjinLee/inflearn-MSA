@@ -1,10 +1,10 @@
-package com.example.orderservice.controller;
+package com.dogmeeting.orderservice.controller;
 
-import com.example.orderservice.dto.OrderDto;
-import com.example.orderservice.jpa.OrderEntity;
-import com.example.orderservice.service.OrderService;
-import com.example.orderservice.vo.RequestOrder;
-import com.example.orderservice.vo.ResponseOrder;
+import com.dogmeeting.orderservice.dto.OrderDto;
+import com.dogmeeting.orderservice.jpa.OrderEntity;
+import com.dogmeeting.orderservice.service.OrderService;
+import com.dogmeeting.orderservice.vo.RequestOrder;
+import com.dogmeeting.orderservice.vo.ResponseOrder;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

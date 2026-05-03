@@ -1,5 +1,6 @@
-package com.example.orderservice.jpa;
+package com.dogmeeting.orderservice.jpa;
 
+import com.dogmeeting.orderservice.jpa.OrderEntity;
 import org.springframework.data.repository.CrudRepository;
 
 public interface OrderRepository extends CrudRepository<OrderEntity, Long> {
