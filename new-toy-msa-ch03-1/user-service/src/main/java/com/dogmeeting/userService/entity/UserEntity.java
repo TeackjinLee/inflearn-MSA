@@ -2,7 +2,6 @@ package com.dogmeeting.userService.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Generated;
 
 @Data
 @Entity
@@ -22,6 +21,6 @@ public class UserEntity {
     private String userId;
 
     @Column(nullable = false, unique = true)
-    private String encryptedPassword;
+    private String encryptedPwd;
 
 }

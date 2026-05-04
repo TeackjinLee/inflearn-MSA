@@ -5,11 +5,9 @@ import com.dogmeeting.userService.entity.UserEntity;
 import com.dogmeeting.userService.repository.UserRepository;
 import com.dogmeeting.userService.vo.ResponseOrder;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -42,7 +40,7 @@ public class UserServiceImpl implements UserService {
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         UserEntity userEntity = mapper.map(userDto, UserEntity.class);
 //        userEntity.setEncryptedPassword("encrypted_password");
-        userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(userDto.getPwd()));
+        userEntity.setEncryptedPwd(bCryptPasswordEncoder.encode(userDto.getPwd()));
 
         userRepository.save(userEntity);
 
@@ -74,10 +72,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByUserId(username);
+        UserEntity userEntity = userRepository.findByEmail(username);
         if (userEntity == null) {
             throw new UsernameNotFoundException(username + " : not found");
         }
-        return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), true, true, true, true, new ArrayList<>());
+        return new User(userEntity.getEmail(), userEntity.getEncryptedPwd(), true, true, true, true, new ArrayList<>());
     }
 }
