@@ -130,6 +130,11 @@ spring:
               predicates:
                 - Path=/catalog-service/**
 
+# SESSION_7. Users Microservice_1
+61. Users Microservice - 기능 추가
+    <img width="1471" height="832" alt="image" src="https://github.com/user-attachments/assets/2bb40a58-5710-48fa-8bba-21a8fcd54e9f" />
+    <img width="1478" height="825" alt="image" src="https://github.com/user-attachments/assets/6e52a469-196c-4d85-b9dc-1db772bbbdb5" />
+    <img width="1473" height="728" alt="image" src="https://github.com/user-attachments/assets/454a08eb-2af4-4e2b-b84e-9ffe69b43b24" />
+    <img width="1479" height="838" alt="image" src="https://github.com/user-attachments/assets/0aeef8ce-f6fb-46a1-b774-687fc0bba665" />
 
 
-    
