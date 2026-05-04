@@ -8,7 +8,7 @@
         <version>3.5.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
+    <groupId>com.dogmeeting</groupId>
     <artifactId>new-toy-msa</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
@@ -18,6 +18,8 @@
         <module>first-service</module>
         <module>second-service</module>
         <module>apigateway-service</module>
+        <module>catalog-service</module>
+        <module>order-service</module>
     </modules>
     <name>new-toy-msa</name>
     <description>new-toy-msa</description>
