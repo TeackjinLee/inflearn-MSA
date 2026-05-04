@@ -20,7 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user-service")
+/***
+ * 63. Users Microservice - API Gateway - Rewrite Path 처리
+ * http://localhost:8000/user-serivice/health-check -> health-check -> http://localhost:60000/health-check 전달 작업
+ * 기존 @RequestMapping("/user-service") 의 user-service 삭제
+***/
+@RequestMapping("/")
 @Slf4j
 public class UserController {
 

@@ -25,11 +25,11 @@ public class WebSecurity {
     public static final String SUBNET = "/32";
     public static final IpAddressMatcher ALLOWED_IP_ADDRESS_MATCHER = new IpAddressMatcher(ALLOWED_IP_ADDRESS + SUBNET);
 
-//    public WebSecurity(UserService userService, Environment environment, BCryptPasswordEncoder bCryptPasswordEncoder) {
-//        this.userService = userService;
-//        this.environment = environment;
-//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-//    }
+    public WebSecurity(UserService userService, Environment environment, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userService = userService;
+        this.env = environment;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http, UserService userService) throws Exception {
