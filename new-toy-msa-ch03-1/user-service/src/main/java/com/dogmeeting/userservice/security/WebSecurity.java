@@ -1,6 +1,6 @@
-package com.dogmeeting.userService.security;
+package com.dogmeeting.userservice.security;
 
-import com.dogmeeting.userService.service.UserService;
+import com.dogmeeting.userservice.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -25,47 +25,42 @@ public class WebSecurity {
     public static final String SUBNET = "/32";
     public static final IpAddressMatcher ALLOWED_IP_ADDRESS_MATCHER = new IpAddressMatcher(ALLOWED_IP_ADDRESS + SUBNET);
 
-    public WebSecurity(UserService userService, Environment environment, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public WebSecurity(Environment env, UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.env = env;
         this.userService = userService;
-        this.env = environment;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Bean
-    protected SecurityFilterChain configure(HttpSecurity http, UserService userService) throws Exception {
+    protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder); // userService에 에러가남. 이유는 UserService에 UserDetailsService의존성을 추가해줘야 한다.
+        authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
 
         AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
 
-        http.csrf((csrf) -> {
-            try {
-                csrf.disable()
-                        .authorizeHttpRequests(auth -> auth
-                                .requestMatchers("/h2-console/**").permitAll()  // 특정 경로 허용
-                                .requestMatchers("/**").access(
-                                        new WebExpressionAuthorizationManager(
-                                                "hasIpAddress('127.0.0.1') or hasIpAddress('::1') or " +
-                                                        "hasIpAddress('192.168.0.12') or hasIpAddress('::1')")) // host pc ip address
-                                .anyRequest().authenticated()              // 그 외는 인증 필요
-                        )
-                        .authenticationManager(authenticationManager)
-                        .addFilter(getAuthenticationFilter(authenticationManager))
-                        .httpBasic(Customizer.withDefaults()) // <- Basic 인증 추가
-                        .headers((headers) -> headers
-                                .frameOptions((frameOptions) -> frameOptions.sameOrigin()));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+        http.csrf( (csrf) -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/h2-console/**").permitAll()  // 특정 경로 허용
+                    .requestMatchers("/**").access(
+                            new WebExpressionAuthorizationManager(
+                                    "hasIpAddress('127.0.0.1') or hasIpAddress('::1') or " +
+                                    "hasIpAddress('192.168.0.12') or hasIpAddress('::1')")) // host pc ip address
+                    .anyRequest().authenticated()              // 그 외는 인증 필요
+                )
+            .authenticationManager(authenticationManager)
+            .addFilter(getAuthenticationFilter(authenticationManager))
+            .httpBasic(Customizer.withDefaults())  // ← Basic 인증 추가
+            .headers((headers) -> headers
+                .frameOptions((frameOptions) -> frameOptions.sameOrigin()));
+
         return http.build();
     }
 
     private AuthenticationFilter getAuthenticationFilter(AuthenticationManager authenticationManager) throws Exception {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter();
         authenticationFilter.setAuthenticationManager(authenticationManager);
-        authenticationFilter.setFilterProcessesUrl("/login");
+
         return authenticationFilter;
     }
 }

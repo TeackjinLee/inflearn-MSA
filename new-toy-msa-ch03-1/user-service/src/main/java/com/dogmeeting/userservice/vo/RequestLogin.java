@@ -1,4 +1,4 @@
-package com.dogmeeting.userService.vo;
+package com.dogmeeting.userservice.vo;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -13,6 +13,6 @@ public class RequestLogin {
     private String email;
 
     @NotNull(message = "Password cannot be null")
-    @Size(min=8, message = "Password must be equals or grater than 8 characters")
+    @Size(min = 8, message = "Password must be equals or grater than 8 characters")
     private String password;
 }

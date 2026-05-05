@@ -1,4 +1,4 @@
-package com.dogmeeting.userService.vo;
+package com.dogmeeting.userservice.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;

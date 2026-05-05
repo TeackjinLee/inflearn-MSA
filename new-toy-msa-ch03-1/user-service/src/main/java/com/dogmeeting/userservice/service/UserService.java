@@ -1,11 +1,13 @@
-package com.dogmeeting.userService.service;
+package com.dogmeeting.userservice.service;
 
-import com.dogmeeting.userService.dto.UserDto;
-import com.dogmeeting.userService.entity.UserEntity;
+import com.dogmeeting.userservice.dto.UserDto;
+import com.dogmeeting.userservice.jpa.UserEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {
     UserDto createUser(UserDto userDto);
     UserDto getUserByUserId(String userId);
     Iterable<UserEntity> getUserByAll();
+
+    UserDto getUserDetailsByEmail(String email);
 }

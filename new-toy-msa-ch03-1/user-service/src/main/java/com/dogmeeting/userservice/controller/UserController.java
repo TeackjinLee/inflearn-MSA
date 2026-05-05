@@ -1,12 +1,13 @@
-package com.dogmeeting.userService.controller;
+package com.dogmeeting.userservice.controller;
 
-import com.dogmeeting.userService.dto.UserDto;
-import com.dogmeeting.userService.entity.UserEntity;
-import com.dogmeeting.userService.service.UserService;
-import com.dogmeeting.userService.vo.RequestUser;
-import com.dogmeeting.userService.vo.GreetingVo;
-import com.dogmeeting.userService.vo.ResponseUser;
+import com.dogmeeting.userservice.dto.UserDto;
+import com.dogmeeting.userservice.jpa.UserEntity;
+import com.dogmeeting.userservice.service.UserService;
+import com.dogmeeting.userservice.vo.Greeting;
+import com.dogmeeting.userservice.vo.RequestUser;
+import com.dogmeeting.userservice.vo.ResponseUser;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -20,43 +21,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-/***
- * 63. Users Microservice - API Gateway - Rewrite Path 처리
- * http://localhost:8000/user-serivice/health-check -> health-check -> http://localhost:60000/health-check 전달 작업
- * 기존 @RequestMapping("/user-service") 의 user-service 삭제
-***/
+//@RequestMapping("/user-service")
 @RequestMapping("/")
 @Slf4j
 public class UserController {
-
     private Environment env;
+
+    private Greeting greeting;
+
     private UserService userService;
 
     @Autowired
-    private GreetingVo greetingVo;
-
-    public UserController(Environment env, UserService userService) {
+    public UserController(Environment env, Greeting greeting, UserService userService) {
         this.env = env;
+        this.greeting = greeting;
         this.userService = userService;
     }
-
+    // http://localhost:8000/user-service/health-check --> http://localhost:60000/health-check
     @GetMapping("/health-check")
-    public String status(){
+    public String status() {
         return String.format("It's Working in User Service"
                 + ", port(local.server.port)=" + env.getProperty("local.server.port")
                 + ", port(server.port)=" + env.getProperty("server.port"));
     }
 
     @GetMapping("/welcome")
-    public String welcome(HttpServletRequest request){
-        log.info("users.welcome ip: {}, {}, {}, {}"
-                , request.getRemoteAddr(), request.getRemoteHost(), request.getRequestURI(), request.getRequestURL());
-        //return env.getProperty("greeting.message"); // application.yml내용.
-        return  greetingVo.getMessage();
+    public String welcome(HttpServletRequest request) {
+        log.info("users.welcome ip: {}, {}, {}, {}", request.getRemoteAddr()
+                , request.getRemoteHost(), request.getRequestURI(), request.getRequestURL());
+
+//        return env.getProperty("greeting.message");
+        return greeting.getMessage();
     }
 
     @PostMapping("/users")
-    public ResponseEntity createUser(@RequestBody RequestUser user){
+    public ResponseEntity<ResponseUser> createUser(@RequestBody RequestUser user) {
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
@@ -69,19 +68,19 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity getUsers(){
+    public ResponseEntity getUsers() {
         Iterable<UserEntity> userList = userService.getUserByAll();
 
         List<ResponseUser> result = new ArrayList<>();
-        userList.forEach(user -> {
-            result.add(new ModelMapper().map(user, ResponseUser.class));
+        userList.forEach(v -> {
+            result.add(new ModelMapper().map(v, ResponseUser.class));
         });
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @GetMapping("/users/{userId}")
-    public ResponseEntity getUserById(@PathVariable String userId){
+    public ResponseEntity getUser(@PathVariable("userId") String userId) {
         UserDto userDto = userService.getUserByUserId(userId);
         ResponseUser returnValue = new ModelMapper().map(userDto, ResponseUser.class);
 

@@ -1,4 +1,4 @@
-package com.dogmeeting.userService.common;
+package com.dogmeeting.userservice;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

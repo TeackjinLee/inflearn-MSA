@@ -1,6 +1,6 @@
-package com.dogmeeting.userService.dto;
+package com.dogmeeting.userservice.dto;
 
-import com.dogmeeting.userService.vo.ResponseOrder;
+import com.dogmeeting.userservice.vo.ResponseOrder;
 import lombok.Data;
 
 import java.util.Date;
