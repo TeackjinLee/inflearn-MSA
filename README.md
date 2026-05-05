@@ -151,6 +151,23 @@ spring:
     <img width="1793" height="1009" alt="image" src="https://github.com/user-attachments/assets/8b9c19c2-3dbb-40fa-a30f-e01754304d0e" />
     <img width="1797" height="1010" alt="image" src="https://github.com/user-attachments/assets/6423a87d-de50-4b3c-9c23-9941f4bc7937" />
     <img width="1794" height="1013" alt="image" src="https://github.com/user-attachments/assets/c511f0d3-fedf-4e42-8d18-7d1dda3dbd4c" />
-    
+68. JWT 구현 - intellij 구현완료
+69. API Gateway - Filter 추가
+    <img width="1784" height="1005" alt="image" src="https://github.com/user-attachments/assets/4a743c1a-10ed-4117-ba38-5068a1a438e5" />
+    - Api-Gateway에서 사용하기 위한 Filter
+    <img width="1789" height="1010" alt="image" src="https://github.com/user-attachments/assets/8d22e6df-4900-4857-a08e-3e470d193cf1" />
+    1. Header값에 authorization header값이 존재하는지
+    2. Jwt라는 토큰이 존재하는지
+    3. 그 토큰이 실재로 사용 가능한 토큰인지
+    <img width="1793" height="1007" alt="image" src="https://github.com/user-attachments/assets/587259e0-a64e-4d2c-8235-46dca3236f17" />
+    후처리 작업
+
+
+
+
+
+
+
+
 
 
