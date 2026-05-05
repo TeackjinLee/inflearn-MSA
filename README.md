@@ -170,6 +170,19 @@ spring:
     <img width="1792" height="1004" alt="image" src="https://github.com/user-attachments/assets/8b1c70a2-7458-405e-9410-0cc8716f323e" />
     - UserService, ApiGateWayService 각각 JWTSecrete을 변경하는게 아닌 독립적으로 따로 가져 한번 배포할때 전체 적용 가능하도록.
 
+74. Local Git Repository
+    <img width="1784" height="1007" alt="image" src="https://github.com/user-attachments/assets/f8ff3cca-b5bf-44d7-bd62-76183dc77921" />
+    <img width="1790" height="1005" alt="image" src="https://github.com/user-attachments/assets/87dc47d0-470f-4898-ba76-597d220d39dc" />
+    <img width="1789" height="1004" alt="image" src="https://github.com/user-attachments/assets/e22a6eb1-fe66-4e3b-abcd-078d453e263c" />
+    <img width="1795" height="1008" alt="image" src="https://github.com/user-attachments/assets/76f1eefd-3712-44e5-b17a-67e3c1dad645" />
+    port 관리
+    - 유레카 8761
+    - api-gateway 8000
+    - spring-config 8888
+    <img width="1797" height="1004" alt="image" src="https://github.com/user-attachments/assets/a6ec3e5d-82d6-4f43-b568-f22b0bc6ef5a" />
+    <img width="1792" height="1007" alt="image" src="https://github.com/user-attachments/assets/0513d1f7-c473-4a9d-bbff-2c6bf9620840" />
+
+
 
 
 
