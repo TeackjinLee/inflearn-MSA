@@ -1,4 +1,4 @@
-<img width="1485" height="848" alt="image" src="https://github.com/user-attachments/assets/bac18424-f3d8-44bf-b283-28a9ca030325" />
+<img width="1794" height="1009" alt="image" src="https://github.com/user-attachments/assets/9b2ad5d5-3220-4274-9e7c-d27bfc5d0f47" /><img width="1485" height="848" alt="image" src="https://github.com/user-attachments/assets/bac18424-f3d8-44bf-b283-28a9ca030325" />
 # inflearn-MSA
 # SESSION_3. API Gateway Service
 17. User Service - 프로젝트 생성
@@ -136,5 +136,13 @@ spring:
     <img width="1478" height="825" alt="image" src="https://github.com/user-attachments/assets/6e52a469-196c-4d85-b9dc-1db772bbbdb5" />
     <img width="1473" height="728" alt="image" src="https://github.com/user-attachments/assets/454a08eb-2af4-4e2b-b84e-9ffe69b43b24" />
     <img width="1479" height="838" alt="image" src="https://github.com/user-attachments/assets/0aeef8ce-f6fb-46a1-b774-687fc0bba665" />
-
-
+65. AuthenticationFilter 추가
+    <img width="1798" height="1008" alt="image" src="https://github.com/user-attachments/assets/483c780a-45ef-466d-af49-1b1ebb2c35f9" />
+    - AuthenticationFilter에서 JWT토큰 만들고 그걸 기반으로 UserService에서 한번더 검증.
+    <img width="1794" height="1009" alt="image" src="https://github.com/user-attachments/assets/939ea9d8-08de-4e1b-87de-73c415611ef5" />
+    - WebSecurity와 AuthenticationFilter는 같은 내용을 공유
+    - 
+    <img width="1792" height="1010" alt="image" src="https://github.com/user-attachments/assets/455e1f41-792d-4287-ba31-8f16f45c1d3c" />
+    - 로그인이 성공했을때 처리해아하는 메소드
+    - Jwt생상, Jwt만료시간
+    
