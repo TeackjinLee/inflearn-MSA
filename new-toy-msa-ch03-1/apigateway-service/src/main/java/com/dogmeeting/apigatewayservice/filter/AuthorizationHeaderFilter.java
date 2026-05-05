@@ -63,7 +63,8 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
         byte[] bytes = "The requested token is invalid.".getBytes(StandardCharsets.UTF_8);
         DataBuffer buffer = exchange.getResponse().bufferFactory().wrap(bytes);
-        return response.writeWith(Flux.just());
+
+        return response.writeWith(Flux.just(buffer));
     }
 
     private boolean isJwtValid(String jwt) {
