@@ -145,4 +145,12 @@ spring:
     <img width="1792" height="1010" alt="image" src="https://github.com/user-attachments/assets/455e1f41-792d-4287-ba31-8f16f45c1d3c" />
     - 로그인이 성공했을때 처리해아하는 메소드
     - Jwt생상, Jwt만료시간
+      
+67. JWT(JSON Web Token) 개요
+    <img width="1798" height="1003" alt="image" src="https://github.com/user-attachments/assets/def6677c-6b06-4887-ae14-375dece560f5" />
+    <img width="1793" height="1009" alt="image" src="https://github.com/user-attachments/assets/8b9c19c2-3dbb-40fa-a30f-e01754304d0e" />
+    <img width="1797" height="1010" alt="image" src="https://github.com/user-attachments/assets/6423a87d-de50-4b3c-9c23-9941f4bc7937" />
+    <img width="1794" height="1013" alt="image" src="https://github.com/user-attachments/assets/c511f0d3-fedf-4e42-8d18-7d1dda3dbd4c" />
     
+
+
