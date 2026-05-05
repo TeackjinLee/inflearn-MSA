@@ -162,9 +162,13 @@ spring:
     <img width="1793" height="1007" alt="image" src="https://github.com/user-attachments/assets/587259e0-a64e-4d2c-8235-46dca3236f17" />
     후처리 작업
 
-
-
-
+# SESSION_8. Configuration Service
+72. 섹션 소개
+73. Spring Cloud Config
+    <img width="1793" height="1002" alt="image" src="https://github.com/user-attachments/assets/e1c40ded-abee-4948-b7cd-27c4896f4187" />
+    - application.yml파일들을 Spring Cloud Config Service에서 관리함으로써 서비스 각각을 빌드하지않고 바로 적용가능하게 작업.
+    <img width="1792" height="1004" alt="image" src="https://github.com/user-attachments/assets/8b1c70a2-7458-405e-9410-0cc8716f323e" />
+    - UserService, ApiGateWayService 각각 JWTSecrete을 변경하는게 아닌 독립적으로 따로 가져 한번 배포할때 전체 적용 가능하도록.
 
 
 
