@@ -10,6 +10,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,12 +31,12 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private UserService userService;
     private Environment env;
 
-//    public AuthenticationFilter(UserService userService, Environment env,
-//                                AuthenticationManager authenticationManager) {
-//        this.userService = userService;
-//        this.env = env;
-//        super.setAuthenticationManager(authenticationManager);
-//    }
+    public AuthenticationFilter(UserService userService, Environment env,
+                                AuthenticationManager authenticationManager) {
+        this.userService = userService;
+        this.env = env;
+        super.setAuthenticationManager(authenticationManager);
+    }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req,
@@ -63,6 +64,9 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                             FilterChain chain,
                                             Authentication authResult)
             throws IOException, ServletException {
+        String userEmail = ((User)authResult.getPrincipal()).getUsername();    // eamil
+        UserDto userDetails = userService.getUserDetailsByEmail(userEmail);
 
+        byte[] secretKeyBytes = env.getProperty("token.secret").getBytes(StandardCharsets.UTF_8);
     }
 }
