@@ -97,3 +97,5 @@ spring:
                     baseMessage: Hi, there
                     preLogger: true
                     postLogger: true
+token:
+  secret: my-very-long-secret-key-1234567890123456
