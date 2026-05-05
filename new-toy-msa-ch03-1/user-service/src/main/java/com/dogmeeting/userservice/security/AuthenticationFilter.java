@@ -68,5 +68,18 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         UserDto userDetails = userService.getUserDetailsByEmail(userEmail);
 
         byte[] secretKeyBytes = env.getProperty("token.secret").getBytes(StandardCharsets.UTF_8);
+
+        SecretKey secretKey = Keys.hmacShaKeyFor(secretKeyBytes);
+        Instant now = Instant.now();
+        String token = Jwts.builder()
+                .subject(userDetails.getUserId()) //UUID
+                .expiration(Date.from(now.plusMillis(Long.parseLong(env.getProperty("token.expiration-time")))))
+                .issuedAt(Date.from(now))
+                .signWith(secretKey)
+                .compact();
+
+        res.addHeader("token", token);
+        res.addHeader("userId", userDetails.getUserId());
+
     }
 }
