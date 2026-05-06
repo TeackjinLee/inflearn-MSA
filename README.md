@@ -181,6 +181,12 @@ spring:
     - spring-config 8888
     <img width="1797" height="1004" alt="image" src="https://github.com/user-attachments/assets/a6ec3e5d-82d6-4f43-b568-f22b0bc6ef5a" />
     <img width="1792" height="1007" alt="image" src="https://github.com/user-attachments/assets/0513d1f7-c473-4a9d-bbff-2c6bf9620840" />
+    
+76. Users Microservice에서 Spring Cloud Config 연동 ①
+<img width="1799" height="1004" alt="image" src="https://github.com/user-attachments/assets/45d04c41-7c97-4bf7-827c-ca9b917b381c" />
+<img width="1795" height="1008" alt="image" src="https://github.com/user-attachments/assets/94d9eb0f-1ec1-4c59-95ad-3dbb4fc38248" />
+<img width="1787" height="1006" alt="image" src="https://github.com/user-attachments/assets/a4d35501-aa63-4f02-ae0b-ea8c6a1d3b45" />
+
 
 
 
