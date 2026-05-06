@@ -208,9 +208,10 @@ spring:
     사용자가 요청했던 값들을 저장 (최대100)
     <img width="1793" height="1009" alt="image" src="https://github.com/user-attachments/assets/6e9106e3-3abe-491f-957c-88eb6e2a4767" />
 
-
-
-
+80. Multiple Profiles 사용하기 ①
+    <img width="1793" height="1006" alt="image" src="https://github.com/user-attachments/assets/cbb34d38-772b-4e89-a0e5-0f7429f21c93" />
+    <img width="1790" height="1002" alt="image" src="https://github.com/user-attachments/assets/c7d5c461-6d20-4e26-a230-5532da099111" />
+    <img width="1787" height="1008" alt="image" src="https://github.com/user-attachments/assets/17670bcc-cc4d-4b07-a2cf-90fd245c1379" />
 
 
 
