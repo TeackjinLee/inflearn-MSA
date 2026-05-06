@@ -213,5 +213,12 @@ spring:
     <img width="1790" height="1002" alt="image" src="https://github.com/user-attachments/assets/c7d5c461-6d20-4e26-a230-5532da099111" />
     <img width="1787" height="1008" alt="image" src="https://github.com/user-attachments/assets/17670bcc-cc4d-4b07-a2cf-90fd245c1379" />
 
+82. Remote Git Repository
+    <img width="1787" height="1005" alt="image" src="https://github.com/user-attachments/assets/404ccf4f-6b25-4917-b46a-c36874216fe8" />
+83. Native File Repository
+    <img width="1797" height="1008" alt="image" src="https://github.com/user-attachments/assets/4b9e19c5-dc56-4209-b4fb-4821111dfecf" />
+    profiles.active가 설정이 안돼있으면 git을 default로 가진다.
+    <img width="1794" height="1005" alt="image" src="https://github.com/user-attachments/assets/b6138e0c-b557-45f9-b4e9-7610b472f67e" />
+    
 
 
