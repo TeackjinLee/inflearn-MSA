@@ -187,6 +187,26 @@ spring:
 <img width="1795" height="1008" alt="image" src="https://github.com/user-attachments/assets/94d9eb0f-1ec1-4c59-95ad-3dbb4fc38248" />
 <img width="1787" height="1006" alt="image" src="https://github.com/user-attachments/assets/a4d35501-aa63-4f02-ae0b-ea8c6a1d3b45" />
 
+77. Users Microservice에서 Spring Cloud Config 연동 ➁
+    <img width="1786" height="1107" alt="image" src="https://github.com/user-attachments/assets/808681f7-bc9c-47d0-9040-2e267065c035" />
+    user-service의 pom.xml에 3개의 의존성을 부여
+    <img width="1797" height="1165" alt="image" src="https://github.com/user-attachments/assets/129a9af5-0488-4bca-8c7b-debc92f694fa" />
+    spring-cloud-config의 위치지정
+    <img width="1789" height="1164" alt="image" src="https://github.com/user-attachments/assets/f56b722b-0666-4fee-8581-bc9e1cdf7dc2" />
+    user-service의 application.yml설정 내용이 나올지 spring-cloud-config의 ecommerce.yml이 나올지 확인
+    결과 : ecommerce.yml나옴
+
+78. Spring Boot Actuator - refresh
+    <img width="1793" height="1008" alt="image" src="https://github.com/user-attachments/assets/9431c42f-6d3b-4e29-b4cd-eacf24d75236" />
+    <img width="1794" height="1008" alt="image" src="https://github.com/user-attachments/assets/e6bedbe2-bce0-4cbf-92e7-4fdcde10c170" />
+    <img width="1792" height="1008" alt="image" src="https://github.com/user-attachments/assets/1eee7723-87c0-4576-ab6b-b4176eb3db18" />
+    - 추후 서비스의 개수가 수백개가 될경우 하나하나 refresh가 어려움 => 추후 spring cloud bus에서 한번에 제어하는 방법 학습 예정
+    
+79. Spring Cloud Gateway에서 Spring Cloud Config 연동
+    <img width="1790" height="1009" alt="image" src="https://github.com/user-attachments/assets/1f4781c1-f699-4acb-a742-bc0f7bff3e40" />
+    <img width="1793" height="1008" alt="image" src="https://github.com/user-attachments/assets/cb2698bf-ef1e-46b4-8b6f-4b1f1c992c78" />
+    사용자가 요청했던 값들을 저장 (최대100)
+    <img width="1793" height="1009" alt="image" src="https://github.com/user-attachments/assets/6e9106e3-3abe-491f-957c-88eb6e2a4767" />
 
 
 
