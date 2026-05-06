@@ -4,9 +4,14 @@ server:
 spring:
   application:
     name: config-service
+  profiles:
+    active: git
   cloud:
     config:
       server:
+        native:
+          search-locations: file:///Users/itaegjin/study/MSA/git-local-repo
         git:
-          uri: file:///Users/itaegjin/study/MSA/git-local-repo
+#          uri: file:///Users/itaegjin/study/MSA/git-local-repo
+          uri: https://github.com/joneconsulting/spring-cloud-config
           default-label: master
