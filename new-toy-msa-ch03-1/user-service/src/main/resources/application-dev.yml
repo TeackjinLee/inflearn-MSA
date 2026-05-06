@@ -1,12 +1,11 @@
 server:
-  port: 0
+  port: 60000
 
 spring:
   application:
     name: user-service
-  profiles:
-    active: dev
-  #   bootstrap.yml 사용안할경우
+
+#   bootstrap.yml 사용안할경우
 #  config:
 #    import: "optional:configserver:http://localhost:8888"
   h2:
@@ -42,18 +41,4 @@ eureka:
     register-with-eureka: true
 
 greeting:
-  message: Welcome to the Simple E-commerce. (spring boot)
-
-#token:
-#  secret: my-very-long-secret-key-1234567890123456
-#  expiration-time: 86400000 # 10 days
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include:
-          - refresh
-          - health
-          - beans
-          - info
+  message: Welcome to the Simple E-commerce. (dev profile)

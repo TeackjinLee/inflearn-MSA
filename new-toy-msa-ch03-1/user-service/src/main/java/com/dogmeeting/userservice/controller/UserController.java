@@ -44,6 +44,7 @@ public class UserController {
                 + ", port(local.server.port)=" + env.getProperty("local.server.port")
                 + ", port(server.port)=" + env.getProperty("server.port")
                 + ", gateway ip(env)= " + env.getProperty("gateway.ip")
+                + ", welcome message= " + env.getProperty("greeting.message")
                 + ", token secret key=" + env.getProperty("token.secret")
                 + ", token expiration time=" + env.getProperty("token.expiration-time"));
     }
