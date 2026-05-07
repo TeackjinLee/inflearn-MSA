@@ -16,10 +16,11 @@ spring:
       server:
         native:
           search-locations: file:///Users/itaegjin/study/MSA/git-local-repo
-        git:
-#          uri: file:///Users/itaegjin/study/MSA/git-local-repo
+        git: #default
           uri: https://github.com/joneconsulting/spring-cloud-config
           default-label: master
+#          username: [username]
+#          password: [password]
 
 management:
   endpoints:

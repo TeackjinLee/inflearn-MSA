@@ -9,8 +9,6 @@ spring:
     port: 5672
     username: guest
     password: guest
-#  profiles:
-#    active: dev
   #   bootstrap.yml 사용안할경우
 #  config:
 #    import: "optional:configserver:http://localhost:8888"
@@ -61,4 +59,5 @@ management:
           - refresh
           - health
           - beans
+          - info
           - busrefresh
