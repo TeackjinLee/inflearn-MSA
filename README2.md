@@ -31,12 +31,21 @@
 
 
 # Section_10 암호화 처리를 위한 Encryption과 Decryption
-    92. 섹션 소개
-        - Encryption types
-        - JCE
-        - Symmetric Encryption
-        - Asymmetric Encryption
+92. 섹션 소개
+    - Encryption types
+    - JCE
+    - Symmetric Encryption
+    - Asymmetric Encryption
         
     
+93. 대칭키와 비대칭키
+    <img width="1795" height="1008" alt="image" src="https://github.com/user-attachments/assets/b9bedde6-5947-454d-a223-ee7da7b3f4b5" />
+    <img width="1791" height="1006" alt="image" src="https://github.com/user-attachments/assets/744f3d3a-12c8-4861-a7f5-89b927b29d07" />
+    <img width="1794" height="1004" alt="image" src="https://github.com/user-attachments/assets/7e82e4d3-f3c9-4feb-9a83-aa891eddee72" />
+    - java 21버전은 필요 없음.
+
+
 
     
+
+
