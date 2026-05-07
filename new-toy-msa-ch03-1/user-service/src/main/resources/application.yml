@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: user-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
 #  profiles:
 #    active: dev
   #   bootstrap.yml 사용안할경우
@@ -56,4 +61,4 @@ management:
           - refresh
           - health
           - beans
-          - info
+          - busrefresh
