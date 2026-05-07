@@ -1,4 +1,4 @@
-# SESSION_9 Spring Cloud Bus
+# Section_9 Spring Cloud Bus
 84. 섹션 소개
     - Spring Cloud Bus
     - RabbitMQ 설치
@@ -30,7 +30,7 @@
     
 
 
-#Section_10 암호화 처리를 위한 Encryption과 Decryption
+# Section_10 암호화 처리를 위한 Encryption과 Decryption
     92. 섹션 소개
         - Encryption types
         - JCE
