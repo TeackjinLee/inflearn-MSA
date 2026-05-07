@@ -16,14 +16,18 @@
 
 86. RabbitMQ 설치 - Docker
     <img width="1775" height="1123" alt="image" src="https://github.com/user-attachments/assets/a030dc03-ead4-4c3f-9a6f-46e0ae8ed8b1" />
+    실행 명령어
+    docker run -it -d --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4-management
     -it : Interactive TTY라는 옵션으로써 사용자가 키보드와 모니터 콘솔을 이용해서 어떠한 명령어를 입력했을 때 해당하는 명령어가 도커 컨테이너 내부에 전달될 수 있도록 제공해주는 기능
     --rm : Remove 옵션이라고 해서 컨테이너가 작동 중이다가 다 작동이 끝난 다음에 컨테이너를 중지시켰을 때 자동적으로 컨테이너 리소스를 삭제해 버리는 기능
     <img width="1783" height="1123" alt="image" src="https://github.com/user-attachments/assets/db3a14a2-29a3-4cf4-a65c-68560ea56861" />
     id/pw: guest/guest
 
-
-
-
+89. AMQP 사용
+    <img width="2108" height="1152" alt="image" src="https://github.com/user-attachments/assets/1b197e49-14dd-431a-900f-48197e3f0995" />
+    <img width="2100" height="1172" alt="image" src="https://github.com/user-attachments/assets/497d1945-db2f-4c96-ae11-88c71212dd22" />
+    <img width="2095" height="1184" alt="image" src="https://github.com/user-attachments/assets/badde0d6-a19c-4a7e-8f7f-f4bdda1adf55" />
+    
 
 
 
