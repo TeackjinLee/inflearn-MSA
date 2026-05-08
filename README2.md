@@ -1,4 +1,4 @@
-# Section_9 Spring Cloud Bus
+<img width="1789" height="1008" alt="image" src="https://github.com/user-attachments/assets/ea91ea84-eec2-4c67-b783-b996b6160b4c" /># Section_9 Spring Cloud Bus
 84. 섹션 소개
     - Spring Cloud Bus
     - RabbitMQ 설치
@@ -112,5 +112,14 @@
     <img width="1784" height="1006" alt="image" src="https://github.com/user-attachments/assets/685f5fd2-0033-41e7-a786-f761ef29b565" />
     <img width="1786" height="1004" alt="image" src="https://github.com/user-attachments/assets/c5f8dbde-fa9c-4191-873d-8bd7a920e300" />
 
+101. RestTemplate 사용 ②
+     <img width="1789" height="1008" alt="image" src="https://github.com/user-attachments/assets/87f37067-604b-498f-9810-ec1a494472d8" />
+    url: Microservice name으로 등록하기 위해 @LoadBalanced 어노테이션 필요
+102. FeignClient 사용 ①
+    <img width="1786" height="1004" alt="image" src="https://github.com/user-attachments/assets/d811eb62-c013-4fe3-9864-bdb3992ab928" />
+    <img width="1793" height="1002" alt="image" src="https://github.com/user-attachments/assets/4b3b91ca-e5af-4bc4-b1ab-f8d4487b3b20" />
+    <img width="1790" height="1007" alt="image" src="https://github.com/user-attachments/assets/2290358d-4e3b-4815-b9d3-a48d9d9fbcf7" />
+    -> 기존 RestApi의 호출부를 인터페이스로 변경하여 깔끔하게 관리 가능
+    <img width="1791" height="1000" alt="image" src="https://github.com/user-attachments/assets/304f8b47-4470-4757-9c01-53b7ba9ded7c" />
 
-    
+
