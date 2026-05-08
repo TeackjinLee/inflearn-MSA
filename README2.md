@@ -121,5 +121,26 @@
     <img width="1790" height="1007" alt="image" src="https://github.com/user-attachments/assets/2290358d-4e3b-4815-b9d3-a48d9d9fbcf7" />
     -> 기존 RestApi의 호출부를 인터페이스로 변경하여 깔끔하게 관리 가능
     <img width="1791" height="1000" alt="image" src="https://github.com/user-attachments/assets/304f8b47-4470-4757-9c01-53b7ba9ded7c" />
+    
+103. FeignClient 사용 ②
+    <img width="1786" height="1004" alt="image" src="https://github.com/user-attachments/assets/8e12fdab-ac5a-4966-8493-439b6084b2cc" />
+    <img width="1787" height="1006" alt="image" src="https://github.com/user-attachments/assets/0eb2cb7b-f296-400c-b065-ebddaa8dabf3" />
+    user-service에서 order-service의 로그를 확인 가능
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
