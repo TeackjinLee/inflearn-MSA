@@ -65,9 +65,52 @@
     <img width="1790" height="1007" alt="image" src="https://github.com/user-attachments/assets/fe2947bf-d4b5-4f05-978a-4faa6a01e063" />
     public, private 키를 만들어 안전성 확보
 
+97. 비대칭키를 이용한 암호화 ②
+    keytool -genkeypair \ -alias #키_별칭(alias)# \ -keyalg RSA \ -dname "CN=#이름(Common Name)#, OU=#부서명(Organizational Unit)#, O=#회사명(Organization)#, L=#도시명(Locality)#, C=#국가코드(Country)#" \ -keypass "#키_비밀번호#" \ -keystore #생성할_keystore_파일명#.jks \ -storepass "#keystore_비밀번호#"
+    keytool -genkeypair -alias apiEncryptionKey -keyalg RSA -dname "CN=ltj, OU=API Development, O=tag101, L=Seoul, C=KR" -keypass "1q2w3e4r" -keystore apiEncryptionKey.jks -storepass "1q2w3e4r"
+        #키_별칭(alias)# → 키 식별 이름 (예: apiEncryptionKey)
+        #이름(Common Name)# → 사용자 또는 서버 이름
+        #부서명(Organizational Unit)# → 개발팀, API팀 등
+        #회사명(Organization)# → 회사명
+        #도시명(Locality)# → Seoul, Busan 등
+        #국가코드(Country)# → KR, US 등 2자리 국가코드
+        #키_비밀번호# → 개인키 비밀번호
+        #생성할_keystore_파일명# → 생성될 jks 파일명
+        #keystore_비밀번호# → keystore 접근 비밀번호
+
+    public key 생성
+    > keytool -exportcert -alias [별칭] -keystore [키스토어파일].jks -rfc -file [출력파일].pem
+    > keytool -exportcert -alias apiEncryptionKey -keystore apiEncryptionKey.jks -rfc -file pulic-key.pem
+    
+    private key 생성
+    - 까다로움. pkcs12로 변환후 뽑아야함.
+    - keytool로 1차적으로 가능
+    > keytool -importkeystore -srckeystore [원본].jks -srcalias [별칭] -destkeystore [출력].p12 -deststoretype PKCS12
+    > keytool -importkeystore -srckeystore apiEncryptionKey.jks -srcalias apiEncryptionKey -destkeystore test-private.p12 -deststoretype PKCS12
+    <img width="1763" height="1115" alt="image" src="https://github.com/user-attachments/assets/24f87785-ed7a-49dd-8a96-49a12ae2c3de" />
+    openssl 명령어 다운 (window 기준)
+    > openssl pkcs12 -in test-private.p12 -nocerts -nodes -out private-key.pem
+    <img width="1943" height="1119" alt="image" src="https://github.com/user-attachments/assets/b7356899-3baf-47f8-9d42-ab0da89989cf" />
+- 이번 시간에 사용할 파일은 private, public-key를 나눠쓰는게 아닌 apiEncryptionKey.jks하나로 암호화, 복호화 진행
+
+# Section_11 Microservice간 통신
+98. 섹션 소개
+    - Communication types
+    - RestTemplate
+    - Feign Client -Log, Exception
+    - ErrorDecoder
+    - Multiple Orders Service
+
+99. Communication types
+    <img width="1783" height="1000" alt="image" src="https://github.com/user-attachments/assets/7ecd7b51-babb-41f5-bcc4-7e408a550ad4" />
+     - Synchronous HTTP communication 강력한 일괄성을 유지 동기방식 -> REST API
+     - Asynchronous coummunication over AMOP 최종적인 일괄성 유지 비동기 방식 -> M.M kafka
+    <img width="1786" height="1007" alt="image" src="https://github.com/user-attachments/assets/4e393561-7a37-4c8c-9bf6-6f26e206d404" />
+
+100. RestTemplate 사용 ①
+    <img width="1783" height="1003" alt="image" src="https://github.com/user-attachments/assets/f9d1d876-9d43-46c0-92e9-9e35ad402a33" />
+    <img width="1784" height="1006" alt="image" src="https://github.com/user-attachments/assets/685f5fd2-0033-41e7-a786-f761ef29b565" />
+    <img width="1786" height="1004" alt="image" src="https://github.com/user-attachments/assets/c5f8dbde-fa9c-4191-873d-8bd7a920e300" />
+
 
     
-
-    
-
-
