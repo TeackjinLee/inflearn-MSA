@@ -1,4 +1,4 @@
-# SESSION_9 Spring Cloud Bus
+# Section_9 Spring Cloud Bus
 84. 섹션 소개
     - Spring Cloud Bus
     - RabbitMQ 설치
@@ -30,8 +30,37 @@
     
 
 
+# Section_10 암호화 처리를 위한 Encryption과 Decryption
+92. 섹션 소개
+    - Encryption types
+    - JCE
+    - Symmetric Encryption
+    - Asymmetric Encryption
+        
+    
+93. 대칭키와 비대칭키
+    <img width="1795" height="1008" alt="image" src="https://github.com/user-attachments/assets/b9bedde6-5947-454d-a223-ee7da7b3f4b5" />
+    <img width="1791" height="1006" alt="image" src="https://github.com/user-attachments/assets/744f3d3a-12c8-4861-a7f5-89b927b29d07" />
+    <img width="1794" height="1004" alt="image" src="https://github.com/user-attachments/assets/7e82e4d3-f3c9-4feb-9a83-aa891eddee72" />
+    - java 21버전은 필요 없음.
 
-
+94. 대칭키를 이용한 암호화 ①
+    <img width="1789" height="1009" alt="image" src="https://github.com/user-attachments/assets/872653d0-98c2-4384-ac0b-ba668a06f678" />
+    <img width="1788" height="1006" alt="image" src="https://github.com/user-attachments/assets/8a837dfe-56e4-4eaa-a76f-04204f11d62c" />
+    
+94. 대칭키를 이용한 암호화 ①
+    <img width="1793" height="1006" alt="image" src="https://github.com/user-attachments/assets/e02ed695-f6a9-433d-9459-90bf42f2b627" />
+    <img width="1790" height="1007" alt="image" src="https://github.com/user-attachments/assets/58815140-0e75-4a2b-8f72-076f66a9a62a" />
+    {cipher} 암호화 데이터를 식별
+    <img width="1796" height="1004" alt="image" src="https://github.com/user-attachments/assets/c5f7f313-5c2f-4c8c-99f2-83f0cdde6ef2" />
+    - 암호화가 풀려서 보임
+    <img width="1792" height="1008" alt="image" src="https://github.com/user-attachments/assets/87ee36c6-d54f-43bb-a7b4-4dc38b8cc130" />
+    - 암호화 데이터를 잘못 불러올 경우 <n/a>로 표기
+    
 
 
     
+
+    
+
+
