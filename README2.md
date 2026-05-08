@@ -56,7 +56,14 @@
     - 암호화가 풀려서 보임
     <img width="1792" height="1008" alt="image" src="https://github.com/user-attachments/assets/87ee36c6-d54f-43bb-a7b4-4dc38b8cc130" />
     - 암호화 데이터를 잘못 불러올 경우 <n/a>로 표기
-    
+96. 비대칭키를 이용한 암호화 ① - keytool
+    <img width="1789" height="1009" alt="image" src="https://github.com/user-attachments/assets/82e790b1-dad6-41ea-968c-2d875b90dc0b" />
+    - RSA 공개키, 전자서명 가능, 전자상거래에서 사용
+    <img width="1788" height="1006" alt="image" src="https://github.com/user-attachments/assets/7eb942df-0154-4a0b-86a4-e3ee36ace733" />
+    <img width="1786" height="1002" alt="image" src="https://github.com/user-attachments/assets/78a8945c-ef67-4bd6-8351-6eb0e637e68d" />
+    <img width="1792" height="1001" alt="image" src="https://github.com/user-attachments/assets/4c415ef7-1581-4c15-b8b9-be814116442d" />
+    <img width="1790" height="1007" alt="image" src="https://github.com/user-attachments/assets/fe2947bf-d4b5-4f05-978a-4faa6a01e063" />
+    public, private 키를 만들어 안전성 확보
 
 
     
