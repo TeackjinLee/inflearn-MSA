@@ -101,4 +101,16 @@
     - ErrorDecoder
     - Multiple Orders Service
 
+99. Communication types
+    <img width="1783" height="1000" alt="image" src="https://github.com/user-attachments/assets/7ecd7b51-babb-41f5-bcc4-7e408a550ad4" />
+     - Synchronous HTTP communication 강력한 일괄성을 유지 동기방식 -> REST API
+     - Asynchronous coummunication over AMOP 최종적인 일괄성 유지 비동기 방식 -> M.M kafka
+    <img width="1786" height="1007" alt="image" src="https://github.com/user-attachments/assets/4e393561-7a37-4c8c-9bf6-6f26e206d404" />
 
+100. RestTemplate 사용 ①
+    <img width="1783" height="1003" alt="image" src="https://github.com/user-attachments/assets/f9d1d876-9d43-46c0-92e9-9e35ad402a33" />
+    <img width="1784" height="1006" alt="image" src="https://github.com/user-attachments/assets/685f5fd2-0033-41e7-a786-f761ef29b565" />
+    <img width="1786" height="1004" alt="image" src="https://github.com/user-attachments/assets/c5f8dbde-fa9c-4191-873d-8bd7a920e300" />
+
+
+    
