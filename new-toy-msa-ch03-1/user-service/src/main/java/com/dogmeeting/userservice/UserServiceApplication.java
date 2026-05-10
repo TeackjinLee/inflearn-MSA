@@ -1,5 +1,6 @@
 package com.dogmeeting.userservice;
 
+import com.dogmeeting.userservice.error.FeignErrorDecoder;
 import feign.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -45,4 +46,9 @@ public class UserServiceApplication {
     public Logger.Level feignLoggerLevel() {
         return Logger.Level.FULL;
     }
+
+//    @Bean
+//    public FeignErrorDecoder feignErrorDecoder() {
+//        return new FeignErrorDecoder();
+//    }
 }
