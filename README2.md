@@ -134,7 +134,20 @@
     1. try {} catch (){}를 활용. 정상적으로 결과가 나오는거 같지만 ERROR가 나오는중.
 105. FeignClient 예외 처리 ②
      OpenFeign을 사용하면서 `FeignException`에 대해 살펴보도록 하겠습니다.
+     <img width="2186" height="1520" alt="image" src="https://github.com/user-attachments/assets/276f1d02-92b6-4193-ab1d-8a450267bfa4" />
+     
+106. ErrorDecoder를 이용한 예외 처리
+    FeignClient를 메소드화 해서 관리하는 방법.
+    <img width="1794" height="1012" alt="image" src="https://github.com/user-attachments/assets/811d10f2-4007-454c-a555-bd91e92796ae" />
+    <img width="1793" height="1008" alt="image" src="https://github.com/user-attachments/assets/0e681a8c-3ccc-4dff-8eae-b67e2f8a6218" />
+    <img width="1790" height="1003" alt="image" src="https://github.com/user-attachments/assets/477af45c-c42f-4407-9d46-5c1b5262f13b" />
+     "User's orders is empty."를 고정값이 아닌 가변데이터로 바꿔 user-service.yml에서 관리.
+     <img width="1792" height="1001" alt="image" src="https://github.com/user-attachments/assets/6346b6eb-a371-48ff-822d-63d78063493d" />
+     <img width="1788" height="1158" alt="image" src="https://github.com/user-attachments/assets/d1700a36-44cc-4b96-abd5-849eca2020f7" />
 
+
+
+    
 
 
 
