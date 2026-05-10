@@ -127,6 +127,13 @@
     <img width="1787" height="1006" alt="image" src="https://github.com/user-attachments/assets/0eb2cb7b-f296-400c-b065-ebddaa8dabf3" />
     user-service에서 order-service의 로그를 확인 가능
 
+104. FeignClient 예외 처리 ①
+    <img width="1784" height="1005" alt="image" src="https://github.com/user-attachments/assets/b12adb2a-c234-40ee-90b5-3b9d0edd88a2" />
+    오류 발생시 처리 방법 -> 잘못된 주소 발생시 400대이지만 500대를 표출되는중. 페이지 오류로 가보니 404가 보임.
+    <img width="1792" height="1004" alt="image" src="https://github.com/user-attachments/assets/227e9751-4aa5-420a-b062-ee04e5c7c037" />
+    1. try {} catch (){}를 활용. 정상적으로 결과가 나오는거 같지만 ERROR가 나오는중.
+105. FeignClient 예외 처리 ②
+     OpenFeign을 사용하면서 `FeignException`에 대해 살펴보도록 하겠습니다.
 
 
 
