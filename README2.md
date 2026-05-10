@@ -134,6 +134,8 @@
     1. try {} catch (){}를 활용. 정상적으로 결과가 나오는거 같지만 ERROR가 나오는중.
 105. FeignClient 예외 처리 ②
      OpenFeign을 사용하면서 `FeignException`에 대해 살펴보도록 하겠습니다.
+     <img width="2186" height="1520" alt="image" src="https://github.com/user-attachments/assets/276f1d02-92b6-4193-ab1d-8a450267bfa4" />
+     
 
 
 
