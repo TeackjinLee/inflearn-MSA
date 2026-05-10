@@ -143,7 +143,8 @@
     <img width="1790" height="1003" alt="image" src="https://github.com/user-attachments/assets/477af45c-c42f-4407-9d46-5c1b5262f13b" />
      "User's orders is empty."를 고정값이 아닌 가변데이터로 바꿔 user-service.yml에서 관리.
      <img width="1792" height="1001" alt="image" src="https://github.com/user-attachments/assets/6346b6eb-a371-48ff-822d-63d78063493d" />
-     
+     <img width="1788" height="1158" alt="image" src="https://github.com/user-attachments/assets/d1700a36-44cc-4b96-abd5-849eca2020f7" />
+
 
 
     
