@@ -155,8 +155,16 @@
      ->  1. 하나의 데이터 베이스 shared database사용하면 문제 해결
          2. MessageQ를 이용한 데이터베이스 동일화 시키기.
          3. kafka Connector를 통한 동기화.
+108. 데이터 동기화 문제 ②
      
+     - 두번째 order-service 실행
+     > mvn clean compile package -DskipTests=true
+     > itaegjin@itaegjin-ui-MacBookPro order-service % java -jar ./target/order-service-0.0.1-SNAPSHOT.jar
+     <img width="1788" height="1005" alt="image" src="https://github.com/user-attachments/assets/2a1b8df1-3b36-4f57-835d-af5e2ad6ebe6" />
+     - 조회를 할때마다 각각의 데이터가 보임. 일관성이 불일치
+     - kafka, rabbitMQ로 여러개의 주문시 처리 가능하도록 동기화 작업.
      
+
 
 
     
