@@ -5,6 +5,7 @@ import com.dogmeeting.userservice.dto.UserDto;
 import com.dogmeeting.userservice.jpa.UserEntity;
 import com.dogmeeting.userservice.jpa.UserRepository;
 import com.dogmeeting.userservice.vo.ResponseOrder;
+import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -94,8 +95,14 @@ public class UserServiceImpl implements UserService {
 //                        });
 //        List<ResponseOrder> orderList = orderListResponse.getBody();
 
-        /* usgin a feignClient*/
-        List<ResponseOrder> orderList = orderServiceClient.getOrders(userId);
+        /* usgin a feignClient with logger */
+        List<ResponseOrder> orderList = null;
+        try {
+            orderList = orderServiceClient.getOrders(userId);
+        } catch (FeignException feignException) {
+            log.error(feignException.getMessage());
+        }
+
         userDto.setOrders(orderList);
 
         return userDto;
