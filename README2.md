@@ -1,4 +1,4 @@
-<img width="1789" height="1008" alt="image" src="https://github.com/user-attachments/assets/ea91ea84-eec2-4c67-b783-b996b6160b4c" /># Section_9 Spring Cloud Bus
+<img width="1790" height="1007" alt="image" src="https://github.com/user-attachments/assets/2c3f6367-fcb1-4d91-a808-c6e923827664" /><img width="1789" height="1008" alt="image" src="https://github.com/user-attachments/assets/ea91ea84-eec2-4c67-b783-b996b6160b4c" /># Section_9 Spring Cloud Bus
 84. 섹션 소개
     - Spring Cloud Bus
     - RabbitMQ 설치
@@ -145,6 +145,18 @@
      <img width="1792" height="1001" alt="image" src="https://github.com/user-attachments/assets/6346b6eb-a371-48ff-822d-63d78063493d" />
      <img width="1788" height="1158" alt="image" src="https://github.com/user-attachments/assets/d1700a36-44cc-4b96-abd5-849eca2020f7" />
 
+107. 데이터 동기화 문제 ①
+    <img width="1788" height="1009" alt="image" src="https://github.com/user-attachments/assets/dcc896ba-c4e3-4c7d-9147-c80da224e1a3" />
+    <img width="1791" height="1004" alt="image" src="https://github.com/user-attachments/assets/eb6b9f4b-49d4-44a2-8022-93cc1436c9b6" />
+    -> 주문이 각각 다른 서버에 순차적으로 일어남.
+    <img width="1786" height="1004" alt="image" src="https://github.com/user-attachments/assets/7848b7b5-d91e-4b65-b8ac-c8d7466a82ae" />
+    -> 데이터도 분산되서 가져오는 문제가 발생
+    <img width="1790" height="1007" alt="image" src="https://github.com/user-attachments/assets/e41febaf-0920-45a1-a654-b8b2839ca8ab" />
+     ->  1. 하나의 데이터 베이스 shared database사용하면 문제 해결
+         2. MessageQ를 이용한 데이터베이스 동일화 시키기.
+         3. kafka Connector를 통한 동기화.
+     
+     
 
 
     
