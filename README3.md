@@ -119,7 +119,13 @@
   - 싱크커넥트가 하는 역할은 토픽에 전달된 데이터를 가지고 와서 자기가 사용하는 것, 즉, 사용처로 보면된다.
   <img width="2046" height="1143" alt="image" src="https://github.com/user-attachments/assets/67d68b4f-339a-4297-a9a4-f55c0cc57569" />
   <img width="2039" height="1134" alt="image" src="https://github.com/user-attachments/assets/879f0bf2-8d5a-4e35-a26d-9aaf2102d1e5" />
-  
+  <img width="2077" height="1145" alt="image" src="https://github.com/user-attachments/assets/a5a38b06-6ff2-4ff4-b69d-abf2c739d432" />
+  - 직접 데이터 추가.
+  > kafka_2.13-4.2.0 % ./bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic my_topic_users
+  <img width="964" height="619" alt="image" src="https://github.com/user-attachments/assets/b9bead12-1f3a-482a-9ab9-45237de231a7" />
+  select * from users;에는 직접 데이터 추가한게 없다.
+> <img width="966" height="624" alt="image" src="https://github.com/user-attachments/assets/61a5de6c-a707-4d69-b27e-19a92b294078" />
+  select * from my_topic_user; 데이터 존재한다.
 
 
 
