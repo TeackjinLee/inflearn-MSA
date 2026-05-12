@@ -79,7 +79,16 @@
   - Consumer : topic에 문자 받기
     > ./bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic quickstart-events --from-beginning
   <img width="2042" height="1084" alt="image" src="https://github.com/user-attachments/assets/62b6a29d-bff2-4cfa-98c1-3096e1269319" />
+  
+113. Apache Kafka 사용 - Kafka Connect
+  <img width="2045" height="1112" alt="image" src="https://github.com/user-attachments/assets/246a1bbf-8786-486b-a6f4-1331c6b57a11" />
+  - data를 가져오는것을 Kafka Connect Source,
+    data를 보내는것을 Kafka Connect Sink
+  <img width="2060" height="1141" alt="image" src="https://github.com/user-attachments/assets/15cb059e-befc-40e4-b646-a53f9d84b61d" />
+  <img width="2055" height="1151" alt="image" src="https://github.com/user-attachments/assets/c0c54b54-7cf4-4afd-9029-d19b206863aa" />
+  
 
+  
 
 
 
