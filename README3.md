@@ -91,6 +91,18 @@
   <img width="2049" height="1149" alt="image" src="https://github.com/user-attachments/assets/1201d1e0-41d9-47b8-bfbe-7c2c4cbb7070" />
   <img width="2073" height="1113" alt="image" src="https://github.com/user-attachments/assets/4538e77d-9a7d-4355-84f4-35979ea00ab0" />
   <img width="2077" height="1107" alt="image" src="https://github.com/user-attachments/assets/64fdc73e-220c-4a68-a757-7696fdccaa40" />
+  
+115. Kafka Connect 설치 ①
+  - MAC
+  <img width="2059" height="1152" alt="image" src="https://github.com/user-attachments/assets/d2262467-8a50-468b-bb0f-fe14ee9f70f9" />
+  <img width="2055" height="1152" alt="image" src="https://github.com/user-attachments/assets/cc6515b8-acbb-4d77-a609-9a9358dd9ca0" />
+  - Windows
+  <img width="2059" height="1156" alt="image" src="https://github.com/user-attachments/assets/f08d0ffa-5e46-4e24-a4ea-ee72459ff7ab" />
+  <img width="2056" height="1146" alt="image" src="https://github.com/user-attachments/assets/914497ca-ea6e-4a38-bf66-c33f103d9500" />
+  <img width="2050" height="1151" alt="image" src="https://github.com/user-attachments/assets/c99d42bd-65d9-457c-a95a-03d8ea515f1b" />
+  <img width="2055" height="1141" alt="image" src="https://github.com/user-attachments/assets/ad6d542d-2e05-4e27-b386-3fba1dea3327" />
+  
+
 
   
 
