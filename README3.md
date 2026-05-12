@@ -87,6 +87,10 @@
   <img width="2060" height="1141" alt="image" src="https://github.com/user-attachments/assets/15cb059e-befc-40e4-b646-a53f9d84b61d" />
   <img width="2055" height="1151" alt="image" src="https://github.com/user-attachments/assets/c0c54b54-7cf4-4afd-9029-d19b206863aa" />
   
+114. Orders Microservice에서 MariaDB 연동
+  <img width="2049" height="1149" alt="image" src="https://github.com/user-attachments/assets/1201d1e0-41d9-47b8-bfbe-7c2c4cbb7070" />
+  <img width="2073" height="1113" alt="image" src="https://github.com/user-attachments/assets/4538e77d-9a7d-4355-84f4-35979ea00ab0" />
+  <img width="2077" height="1107" alt="image" src="https://github.com/user-attachments/assets/64fdc73e-220c-4a68-a757-7696fdccaa40" />
 
   
 
