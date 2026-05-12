@@ -19,3 +19,72 @@
   > tar xvf kafka_*.tgz
   - bin 실행파일들, config 설정 폴더들
   - zookeeper, kafka 3대면 안정적, 예제에서는 하나씩만 설정
+112. Apache Kafka 사용 - Producer/Consumer
+  <img width="2045" height="1142" alt="image" src="https://github.com/user-attachments/assets/982ac683-1988-4cf7-83c1-3e11f9d2d897" />
+  <img width="2976" height="1406" alt="image" src="https://github.com/user-attachments/assets/7a7aa55d-72b9-4146-af2d-8a213df2569c" />
+  - java외에 사용 가능한 언어들
+  <img width="2046" height="1149" alt="image" src="https://github.com/user-attachments/assets/6448f0fe-b7cc-494c-9e48-4cf3304d7fe1" />
+  - kafka 자체를 관리하는 zookeeper 필요
+  - zookeeper > kafka 
+  <img width="2055" height="1126" alt="image" src="https://github.com/user-attachments/assets/86b56310-4c6b-4ff2-aa0f-4a371c747146" />
+  <img width="2055" height="1153" alt="image" src="https://github.com/user-attachments/assets/a14d8262-51b0-40f8-abc7-10093adca9e5" />
+  예전 구조:
+    Producer/Consumer
+          ↓
+      Kafka Broker
+          ↓
+      ZooKeeper
+  현재(KRaft):
+    Producer/Consumer
+          ↓
+    Kafka Broker + Controller(KRaft)
+  요즘 신규 구축이면 거의 다 KRaft로 가고, 기존 운영 중인 오래된 클러스터만 ZooKeeper 기반이 아직 남아있는 편
+
+  예전(ZooKeeper 기반):
+  zookeeper-server-start.sh config/zookeeper.properties
+  kafka-server-start.sh config/server.properties
+  이제(KRaft 기반):
+  kafka-server-start.sh config/kraft/server.properties
+    오류시
+      가장 흔한 원인
+      server.properties에서 이거 빠짐:
+      listeners=PLAINTEXT://:9092,CONTROLLER://:9093
+      advertised.listeners=PLAINTEXT://localhost:9092
+      controller.quorum.voters=1@localhost:9093
+      process.roles=broker,controller
+      node.id=1
+      controller.listener.names=CONTROLLER
+      listener.security.protocol.map=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      inter.broker.listener.name=PLAINTEXT
+  Kafka 4.x라면 반드시 해야 하는 것
+  1. UUID 생성
+    > ./bin/kafka-storage.sh random-uuid
+    > ./bin/kafka-server-start.sh config/kraft/server.properties
+    > ./bin/kafka-storage.sh format -t tqxW-EpbTamxaHddwkGaEg -c ./config/server.properties
+    > ./bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic quickstart-events --partitions 1
+  - topic 생성
+    > ./bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic quickstart-events --partitions 1
+  - topic list
+    > ./bin/kafka-topics.sh --bootstrap-server localhost:9092 --list 
+  - topic detail
+    > ./bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic quickstart-events
+
+  - Producer : topic에 메세지를 전달
+    > ./bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic quickstart-events
+    Kafka 4.x부터 옵션명이 바뀌었어.
+    예전:
+    --broker-list
+    이제:
+    --bootstrap-server
+  - Consumer : topic에 문자 받기
+    > ./bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic quickstart-events --from-beginning
+  <img width="2042" height="1084" alt="image" src="https://github.com/user-attachments/assets/62b6a29d-bff2-4cfa-98c1-3096e1269319" />
+
+
+
+
+
+
+
+
+    
