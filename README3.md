@@ -108,10 +108,18 @@
   <img width="2034" height="1111" alt="image" src="https://github.com/user-attachments/assets/c08e951b-3208-435d-b0d2-4880afd6fb1a" />
   <img width="2058" height="1145" alt="image" src="https://github.com/user-attachments/assets/962c6698-607f-421d-9074-0f231aec51df" />
   <img width="2051" height="1143" alt="image" src="https://github.com/user-attachments/assets/78cc3321-6937-40eb-9cbf-a24b4f15b4c1" />
-
-
+  
+117. Kafka Source Connect 사용
+  <img width="2037" height="1131" alt="image" src="https://github.com/user-attachments/assets/8e7896e4-f893-4cca-a02d-7bd5d995046b" />
   
 
+  
+118. Kafka Sink Connect 사용
+  <img width="2040" height="1095" alt="image" src="https://github.com/user-attachments/assets/6f53356f-3734-4742-aecf-a33879822431" />
+  - 싱크커넥트가 하는 역할은 토픽에 전달된 데이터를 가지고 와서 자기가 사용하는 것, 즉, 사용처로 보면된다.
+  <img width="2046" height="1143" alt="image" src="https://github.com/user-attachments/assets/67d68b4f-339a-4297-a9a4-f55c0cc57569" />
+  <img width="2039" height="1134" alt="image" src="https://github.com/user-attachments/assets/879f0bf2-8d5a-4e35-a26d-9aaf2102d1e5" />
+  
 
 
 
