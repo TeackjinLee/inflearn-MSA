@@ -102,6 +102,12 @@
   <img width="2050" height="1151" alt="image" src="https://github.com/user-attachments/assets/c99d42bd-65d9-457c-a95a-03d8ea515f1b" />
   <img width="2055" height="1141" alt="image" src="https://github.com/user-attachments/assets/ad6d542d-2e05-4e27-b386-3fba1dea3327" />
   
+117. Kafka Source Connect 사용
+  <img width="2061" height="1155" alt="image" src="https://github.com/user-attachments/assets/c2a35cde-b626-423b-9b97-35a13651e763" />
+  <img width="2019" height="1145" alt="image" src="https://github.com/user-attachments/assets/32afdbd3-c4ad-457b-a5db-76754c202c37" />
+  <img width="2034" height="1111" alt="image" src="https://github.com/user-attachments/assets/c08e951b-3208-435d-b0d2-4880afd6fb1a" />
+  <img width="2058" height="1145" alt="image" src="https://github.com/user-attachments/assets/962c6698-607f-421d-9074-0f231aec51df" />
+  <img width="2051" height="1143" alt="image" src="https://github.com/user-attachments/assets/78cc3321-6937-40eb-9cbf-a24b4f15b4c1" />
 
 
   
