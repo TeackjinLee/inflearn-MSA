@@ -146,69 +146,197 @@
   120. Catalogs Microservice 수정
   package com.dogmeeting.catalogservice.messagequeue;
 
-import com.dogmeeting.catalogservice.jpa.CatalogEntity;
-import com.dogmeeting.catalogservice.jpa.CatalogRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Service;
+  import com.dogmeeting.catalogservice.jpa.CatalogEntity;
+  import com.dogmeeting.catalogservice.jpa.CatalogRepository;
+  import com.fasterxml.jackson.core.JsonProcessingException;
+  import com.fasterxml.jackson.core.type.TypeReference;
+  import com.fasterxml.jackson.databind.ObjectMapper;
+  import lombok.extern.slf4j.Slf4j;
+  import org.springframework.beans.factory.annotation.Autowired;
+  import org.springframework.kafka.annotation.KafkaListener;
+  import org.springframework.stereotype.Service;
+  
+  import java.util.HashMap;
+  import java.util.Map;
+  
+  @Service
+  @Slf4j
+  public class KafkaConsumer {
+  
+      CatalogRepository catalogRepository;
+  
+      @Autowired
+      public KafkaConsumer(CatalogRepository catalogRepository) {
+          this.catalogRepository = catalogRepository;
+      }
+  
+      /* Kafka Listener: 지정된 토픽으로부터 메시지를 수신 */
+      @KafkaListener(topics = "example-catalog-topic")
+      public void updateQty(String kafkaMessage) {
+          log.info("Kafka Message: -> {}", kafkaMessage);
+  
+          Map<Object, Object> map = new HashMap<>();
+          ObjectMapper mapper = new ObjectMapper();
+  
+          try {
+              /* JSON String 형태의 메시지를 Map 객체로 변환 (Deserialization) */
+              map = mapper.readValue(
+                      kafkaMessage,
+                      new TypeReference<Map<Object, Object>>() {}
+              );
+          } catch (JsonProcessingException ex) {
+              log.error("JSON Parsing Error: {}", ex.getMessage());
+              ex.printStackTrace();
+          }
+  
+          /* 1. DB에서 해당 상품 조회 */
+          CatalogEntity catalogEntity =
+                  catalogRepository.findByProductId(
+                          (String) map.get("productId")
+                  );
+  
+          /* 2. 데이터가 존재할 경우 재고 차감 후 저장 */
+          if (catalogEntity != null) {
+              int currentStock = catalogEntity.getStock();
+              int orderQty = (Integer) map.get("qty");
+  
+              // 현재 재고 - 주문 수량 업데이트
+              catalogEntity.setStock(currentStock - orderQty);
+  
+              catalogRepository.save(catalogEntity);
+              log.info("Catalog Stock Updated. Product: {}, New Stock: {}", 
+                       map.get("productId"), catalogEntity.getStock());
+          }
+      }
+  }
+  
+  package com.dogmeeting.catalogservice.messagequeue;
+  
+  import org.apache.kafka.clients.consumer.ConsumerConfig;
+  import org.apache.kafka.common.serialization.StringDeserializer;
+  import org.springframework.context.annotation.Bean;
+  import org.springframework.context.annotation.Configuration;
+  import org.springframework.kafka.annotation.EnableKafka;
+  import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
+  import org.springframework.kafka.core.ConsumerFactory;
+  import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+  import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+  
+  import java.util.HashMap;
+  import java.util.Map;
+  
+  @EnableKafka
+  @Configuration
+  public class KafkaConsumerConfig {
+  
+      @Bean
+      public ConsumerFactory<String, String> consumerFactory() {
+          Map<String, Object> properties = new HashMap<>();
+          properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+          properties.put(ConsumerConfig.GROUP_ID_CONFIG, "consumerGroupId");
+          properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+          properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+  
+          return new DefaultKafkaConsumerFactory<>(properties);
+      }
+  
+      @Bean
+      public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
+          ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory
+                  = new ConcurrentKafkaListenerContainerFactory<>();
+          kafkaListenerContainerFactory.setConsumerFactory(consumerFactory());
+  
+          return kafkaListenerContainerFactory;
+      }
+  }
 
-import java.util.HashMap;
-import java.util.Map;
+  121. Orders Microservice 수정
+  package com.dogmeeting.orderservice.messagequeue;
 
-@Service
-@Slf4j
-public class KafkaConsumer {
-
-    CatalogRepository catalogRepository;
-
-    @Autowired
-    public KafkaConsumer(CatalogRepository catalogRepository) {
-        this.catalogRepository = catalogRepository;
-    }
-
-    /* Kafka Listener: 지정된 토픽으로부터 메시지를 수신 */
-    @KafkaListener(topics = "example-catalog-topic")
-    public void updateQty(String kafkaMessage) {
-        log.info("Kafka Message: -> {}", kafkaMessage);
-
-        Map<Object, Object> map = new HashMap<>();
-        ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            /* JSON String 형태의 메시지를 Map 객체로 변환 (Deserialization) */
-            map = mapper.readValue(
-                    kafkaMessage,
-                    new TypeReference<Map<Object, Object>>() {}
-            );
-        } catch (JsonProcessingException ex) {
-            log.error("JSON Parsing Error: {}", ex.getMessage());
-            ex.printStackTrace();
-        }
-
-        /* 1. DB에서 해당 상품 조회 */
-        CatalogEntity catalogEntity =
-                catalogRepository.findByProductId(
-                        (String) map.get("productId")
-                );
-
-        /* 2. 데이터가 존재할 경우 재고 차감 후 저장 */
-        if (catalogEntity != null) {
-            int currentStock = catalogEntity.getStock();
-            int orderQty = (Integer) map.get("qty");
-
-            // 현재 재고 - 주문 수량 업데이트
-            catalogEntity.setStock(currentStock - orderQty);
-
-            catalogRepository.save(catalogEntity);
-            log.info("Catalog Stock Updated. Product: {}, New Stock: {}", 
-                     map.get("productId"), catalogEntity.getStock());
-        }
-    }
-}
-
-
-    
+  import com.dogmeeting.orderservice.dto.OrderDto;
+  import com.fasterxml.jackson.core.JsonProcessingException;
+  import com.fasterxml.jackson.databind.ObjectMapper;
+  import lombok.extern.slf4j.Slf4j;
+  import org.springframework.beans.factory.annotation.Autowired;
+  import org.springframework.kafka.core.KafkaTemplate;
+  import org.springframework.stereotype.Service;
+  
+  @Service
+  @Slf4j
+  public class KafkaProducer {
+      private KafkaTemplate<String, String> kafkaTemplate;
+  
+      @Autowired
+      public KafkaProducer(KafkaTemplate<String, String> kafkaTemplate) {
+          this.kafkaTemplate = kafkaTemplate;
+      }
+  
+      public OrderDto send(String topic, OrderDto orderDto) {
+          ObjectMapper objectMapper = new ObjectMapper();
+          String jsonInString = "";
+          try {
+              jsonInString = objectMapper.writeValueAsString(orderDto);
+          } catch (JsonProcessingException ex) {
+              ex.printStackTrace();
+          }
+  
+          kafkaTemplate.send(topic, jsonInString);
+          log.info("kafka Producer sent data from the Order microservice: " + orderDto);
+          return orderDto;
+      }
+  }
+  
+  package com.dogmeeting.orderservice.messagequeue;
+  
+  import org.apache.kafka.clients.producer.ProducerConfig;
+  import org.apache.kafka.common.serialization.StringSerializer;
+  import org.springframework.context.annotation.Bean;
+  import org.springframework.context.annotation.Configuration;
+  import org.springframework.kafka.annotation.EnableKafka;
+  import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
+  import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+  import org.springframework.kafka.core.KafkaTemplate;
+  import org.springframework.kafka.core.ProducerFactory;
+  
+  import java.util.HashMap;
+  import java.util.Map;
+  
+  @EnableKafka
+  @Configuration
+  public class KafkaProducerConfig {
+  
+      @Bean
+      public ProducerFactory<String, String> producerFactory() {
+          Map<String, Object> properties = new HashMap<>();
+          properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+          properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+          properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+  
+          return new DefaultKafkaProducerFactory<>(properties);
+      }
+  
+      @Bean
+      public KafkaTemplate<String, String> kafkaTemplate() {
+          return new KafkaTemplate<>(producerFactory());
+      }
+  }
+  
+  @PostMapping("/{userId}/orders")
+  public ResponseEntity<ResponseOrder> createOrder(@PathVariable("userId") String userId,
+                                                   @RequestBody RequestOrder orderDetails) {
+      log.info("Before add orders data");
+      ModelMapper mapper = new ModelMapper();
+      mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+      /* jpa */
+      OrderDto orderDto = mapper.map(orderDetails, OrderDto.class);
+      orderDto.setUserId(userId);
+      OrderDto createdOrder = orderService.createOrder(orderDto);
+  
+      ResponseOrder responseOrder = mapper.map(createdOrder, ResponseOrder.class);
+  
+      /* send this order to the kafka */
+      kafkaProducer.send("example-catalog-topic", orderDto);
+  
+      log.info("After added orders data");
+      return ResponseEntity.status(HttpStatus.CREATED).body(responseOrder);
+  }
