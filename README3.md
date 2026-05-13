@@ -135,5 +135,16 @@
     - CatalogsService는 데이터를 가져오는 Consumer 역할
     - OrderService는 Topic에 전달되있는 데이터를 전달하는 Producer역할
     <img width="2058" height="1158" alt="image" src="https://github.com/user-attachments/assets/85fece32-6460-46fa-b16a-84b269cf419b" />
+    <img width="2052" height="1158" alt="image" src="https://github.com/user-attachments/assets/584b629b-0145-4658-a309-4b5ae0793c6e" />
+    <img width="2050" height="1155" alt="image" src="https://github.com/user-attachments/assets/d217268f-07da-43a3-8f09-5c8bbe64a6f7" />
+    <img width="2053" height="1141" alt="image" src="https://github.com/user-attachments/assets/339c4535-31b6-4100-bea7-8105b5a98211" />
+    <img width="2051" height="1148" alt="image" src="https://github.com/user-attachments/assets/ece4aa1c-1a10-4444-aa55-7f9f0dfd671c" />
+    <img width="2057" height="1140" alt="image" src="https://github.com/user-attachments/assets/bc66fdf3-a770-42b6-a77d-07b0a51cd4e3" />
+    - Consumer는 리스너가 데이터를 받음
+    <img width="2052" height="1154" alt="image" src="https://github.com/user-attachments/assets/324f23dd-f7c3-4005-968e-363580ae91ff" />
+
+
+
+
 
     
