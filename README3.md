@@ -143,8 +143,72 @@
     - Consumer는 리스너가 데이터를 받음
     <img width="2052" height="1154" alt="image" src="https://github.com/user-attachments/assets/324f23dd-f7c3-4005-968e-363580ae91ff" />
 
+  120. Catalogs Microservice 수정
+  package com.dogmeeting.catalogservice.messagequeue;
 
+import com.dogmeeting.catalogservice.jpa.CatalogEntity;
+import com.dogmeeting.catalogservice.jpa.CatalogRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
+@Service
+@Slf4j
+public class KafkaConsumer {
+
+    CatalogRepository catalogRepository;
+
+    @Autowired
+    public KafkaConsumer(CatalogRepository catalogRepository) {
+        this.catalogRepository = catalogRepository;
+    }
+
+    /* Kafka Listener: 지정된 토픽으로부터 메시지를 수신 */
+    @KafkaListener(topics = "example-catalog-topic")
+    public void updateQty(String kafkaMessage) {
+        log.info("Kafka Message: -> {}", kafkaMessage);
+
+        Map<Object, Object> map = new HashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            /* JSON String 형태의 메시지를 Map 객체로 변환 (Deserialization) */
+            map = mapper.readValue(
+                    kafkaMessage,
+                    new TypeReference<Map<Object, Object>>() {}
+            );
+        } catch (JsonProcessingException ex) {
+            log.error("JSON Parsing Error: {}", ex.getMessage());
+            ex.printStackTrace();
+        }
+
+        /* 1. DB에서 해당 상품 조회 */
+        CatalogEntity catalogEntity =
+                catalogRepository.findByProductId(
+                        (String) map.get("productId")
+                );
+
+        /* 2. 데이터가 존재할 경우 재고 차감 후 저장 */
+        if (catalogEntity != null) {
+            int currentStock = catalogEntity.getStock();
+            int orderQty = (Integer) map.get("qty");
+
+            // 현재 재고 - 주문 수량 업데이트
+            catalogEntity.setStock(currentStock - orderQty);
+
+            catalogRepository.save(catalogEntity);
+            log.info("Catalog Stock Updated. Product: {}, New Stock: {}", 
+                     map.get("productId"), catalogEntity.getStock());
+        }
+    }
+}
 
 
     
