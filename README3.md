@@ -286,6 +286,7 @@
       }
   }
   
+  {
   package com.dogmeeting.orderservice.messagequeue;
   
   import org.apache.kafka.clients.producer.ProducerConfig;
@@ -320,23 +321,26 @@
           return new KafkaTemplate<>(producerFactory());
       }
   }
+  }
   
-  @PostMapping("/{userId}/orders")
-  public ResponseEntity<ResponseOrder> createOrder(@PathVariable("userId") String userId,
-                                                   @RequestBody RequestOrder orderDetails) {
-      log.info("Before add orders data");
-      ModelMapper mapper = new ModelMapper();
-      mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-      /* jpa */
-      OrderDto orderDto = mapper.map(orderDetails, OrderDto.class);
-      orderDto.setUserId(userId);
-      OrderDto createdOrder = orderService.createOrder(orderDto);
-  
-      ResponseOrder responseOrder = mapper.map(createdOrder, ResponseOrder.class);
-  
-      /* send this order to the kafka */
-      kafkaProducer.send("example-catalog-topic", orderDto);
-  
-      log.info("After added orders data");
-      return ResponseEntity.status(HttpStatus.CREATED).body(responseOrder);
+  {
+    @PostMapping("/{userId}/orders")
+    public ResponseEntity<ResponseOrder> createOrder(@PathVariable("userId") String userId,
+                                                     @RequestBody RequestOrder orderDetails) {
+        log.info("Before add orders data");
+        ModelMapper mapper = new ModelMapper();
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        /* jpa */
+        OrderDto orderDto = mapper.map(orderDetails, OrderDto.class);
+        orderDto.setUserId(userId);
+        OrderDto createdOrder = orderService.createOrder(orderDto);
+    
+        ResponseOrder responseOrder = mapper.map(createdOrder, ResponseOrder.class);
+    
+        /* send this order to the kafka */
+        kafkaProducer.send("example-catalog-topic", orderDto);
+    
+        log.info("After added orders data");
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseOrder);
+    }
   }
