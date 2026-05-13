@@ -128,8 +128,12 @@
   select * from my_topic_user; 데이터 존재한다.
 
 
-
-
-
+# Section13_데이터 동기화를 위한 Apache Kafka의 활용_2
+  119. Orders Microservice와 Catalogs Microservice에 Kafka Topic의 적용
+    <img width="2055" height="1152" alt="image" src="https://github.com/user-attachments/assets/17f7bf6e-5e27-42be-ae4b-3903bc146234" />
+    <img width="2044" height="1134" alt="image" src="https://github.com/user-attachments/assets/28d6acfd-323f-4174-9131-dfbfcf6cbcec" />
+    - CatalogsService는 데이터를 가져오는 Consumer 역할
+    - OrderService는 Topic에 전달되있는 데이터를 전달하는 Producer역할
+    <img width="2058" height="1158" alt="image" src="https://github.com/user-attachments/assets/85fece32-6460-46fa-b16a-84b269cf419b" />
 
     
