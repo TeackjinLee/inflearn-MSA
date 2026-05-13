@@ -2,6 +2,7 @@ package com.dogmeeting.orderservice.controller;
 
 import com.dogmeeting.orderservice.dto.OrderDto;
 import com.dogmeeting.orderservice.jpa.OrderEntity;
+import com.dogmeeting.orderservice.messagequeue.KafkaProducer;
 import com.dogmeeting.orderservice.service.OrderService;
 import com.dogmeeting.orderservice.vo.RequestOrder;
 import com.dogmeeting.orderservice.vo.ResponseOrder;
@@ -23,11 +24,13 @@ import java.util.List;
 public class OrderController {
     Environment env;
     OrderService orderService;
+    KafkaProducer kafkaProducer;
 
     @Autowired
-    public OrderController(Environment env, OrderService orderService) {
+    public OrderController(Environment env, OrderService orderService, KafkaProducer kafkaProducer) {
         this.env = env;
         this.orderService = orderService;
+        this.kafkaProducer = kafkaProducer;
     }
 
     @GetMapping("/health-check")
@@ -43,12 +46,15 @@ public class OrderController {
         log.info("Before add orders data");
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-
+        /* jpa */
         OrderDto orderDto = mapper.map(orderDetails, OrderDto.class);
         orderDto.setUserId(userId);
-        /* jpa */
         OrderDto createdOrder = orderService.createOrder(orderDto);
+
         ResponseOrder responseOrder = mapper.map(createdOrder, ResponseOrder.class);
+
+        /* send this order to the kafka */
+        kafkaProducer.send("example-catalog-topic", orderDto);
 
         log.info("After added orders data");
         return ResponseEntity.status(HttpStatus.CREATED).body(responseOrder);
