@@ -348,7 +348,22 @@
   
 123. Multi Orders Microservice 사용에 대한 데이터 동기화 문제
   <img width="2046" height="1150" alt="image" src="https://github.com/user-attachments/assets/076824e6-487d-41a6-b8aa-45700bc4fc71" />
+  - Orders 데이터도 분산 저장 -> 동기화 문제
+  <img width="1554" height="875" alt="image" src="https://github.com/user-attachments/assets/0e9132af-7b21-40b3-bed3-8598ef935298" />
+  - 데이터를 5개 insert했으나 각각의 디비에 나뉘어서 저장
+  <img width="1560" height="877" alt="image" src="https://github.com/user-attachments/assets/8dafc070-f359-4690-a733-14a20ecba99e" />
+  - 데이터를 5개 insert했으나 각각의 디비에 나뉘어서 저장
+  <img width="1541" height="1073" alt="image" src="https://github.com/user-attachments/assets/8d607059-0988-441b-9adf-d964a3b601cd" />
+  - 각각의 디비 데이터를 불러옴
+    
+124. Kafka Connect를 활용한 단일 데이터베이스를 사용
+  <img width="2059" height="1154" alt="image" src="https://github.com/user-attachments/assets/7aac1394-2a39-42d4-a7c7-285ca1884966" />
+  <img width="2051" height="1151" alt="image" src="https://github.com/user-attachments/assets/0bcc0c09-b3ac-4f1b-8cba-b400099e8704" />
+  - h2 -> mariadb로 변경
+  <img width="2055" height="1097" alt="image" src="https://github.com/user-attachments/assets/de7e6af5-5089-46d1-b84f-aa54514900df" />
   
+
+
 
 
 
