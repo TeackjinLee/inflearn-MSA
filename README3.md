@@ -364,7 +364,10 @@
   
 125. Orders Microservice 수정 - MariaDB
   
-
+126. Orders Microservice 수정 - Orders Kafka Topic
+  <img width="2056" height="1149" alt="image" src="https://github.com/user-attachments/assets/7a1df5fa-093b-48cd-92de-d76539c2617f" />
+  <img width="2057" height="1153" alt="image" src="https://github.com/user-attachments/assets/07768100-cddd-4fda-a554-abdebde565a6" />
+  
 
 
 
