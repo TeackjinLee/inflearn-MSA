@@ -367,7 +367,18 @@
 126. Orders Microservice 수정 - Orders Kafka Topic
   <img width="2056" height="1149" alt="image" src="https://github.com/user-attachments/assets/7a1df5fa-093b-48cd-92de-d76539c2617f" />
   <img width="2057" height="1153" alt="image" src="https://github.com/user-attachments/assets/07768100-cddd-4fda-a554-abdebde565a6" />
+  <img width="2045" height="1147" alt="image" src="https://github.com/user-attachments/assets/842cc720-838a-4d7d-833c-5d0326a5aafb" />
+  <img width="2026" height="1118" alt="image" src="https://github.com/user-attachments/assets/a6027e63-b365-4019-967b-b5462897c0ac" />
+  - 필드 영역에 만듬 -> 메모리 사용 절약
+  <img width="2058" height="1153" alt="image" src="https://github.com/user-attachments/assets/928b39d1-e459-4b05-94b2-78a15e9cc19f" />
+  - 사용자가 변경할수 있는 부분은 send의 메소드로 구현 -> 메모리 사용 절약
+  <img width="2049" height="1146" alt="image" src="https://github.com/user-attachments/assets/7b37f8f1-8505-443b-8c5f-7fa686102eb0" />
+  - sink정보 전달.
+
   
+
+
+
 
 
 
