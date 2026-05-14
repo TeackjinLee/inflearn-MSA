@@ -228,3 +228,63 @@ hello kafka
 ```text
 hello kafka
 ```
+
+
+# Apache Kafka 사용 - Kafka Connect
+- kafka-console-producer에서 데이터 전송 -> Topicdp cnrk -> MariaDB에 추가
+- data를 가져오는것을 Kafka Connect Source, data를 보내는것을 Kafka Connect Sink
+## 1. Kafka Connect 설정 (기본으로 사용)
+```bash
+$KAFKA_HOME/config/connect-distributed.properties
+```
+
+## 2. Kafka Connect 실행
+```bash
+./bin/connect-distributed ./etc/kafka/connect-distributed.properties
+```
+
+## 3. Topic 목록 조회
+```bash
+./bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
+```
+
+## 4. Kafka Source Connect 추가
+```bash
+echo '
+{
+    "name":"my-order-sink-connect",
+    "config":{
+    "connector.class":"io.confluent.connect.jdbc.JdbcSinkConnector",
+    "connection.url":"jdbc:mysql://localhost:3306/mydb",
+    "connection.user":"root",
+    "connection.password":"123123123",
+    "auto.create":"true",
+    "auto.evolve":"true",
+    "delete.enabled":"false",
+    "tasks.max":"1",
+    "topics":"orders"
+    }
+}
+' | curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"
+```
+
+## 5. Kafka Connect 목록 확인
+```api-get
+localhost:8083/connectors
+```
+
+## 5. Kafka Connect 확인
+```api-get
+localhost:8083/connectors/my-order-sink-connect/status
+```
+
+
+
+
+
+
+
+
+
+
+
