@@ -1,4 +1,4 @@
-# Section12_데이터 동기화를 위한 Apache Kafka의 활용_1
+<img width="2038" height="1106" alt="image" src="https://github.com/user-attachments/assets/de63d9c5-8510-40a0-ba78-45cbafea30a6" /># Section12_데이터 동기화를 위한 Apache Kafka의 활용_1
 109. 섹션 소개
   - Kafka란?
   - Kafka 설치
@@ -375,11 +375,13 @@
   <img width="2049" height="1146" alt="image" src="https://github.com/user-attachments/assets/7b37f8f1-8505-443b-8c5f-7fa686102eb0" />
   - sink정보 전달.
 
+128. Kafka를 활용한 데이터 동기화 테스트 ②
+  <img width="2048" height="1128" alt="image" src="https://github.com/user-attachments/assets/b93639f5-b8d4-4c57-86e8-6d3ecf97277a" />
+  > ./bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic orders --from-beginning
+  <img width="2028" height="1102" alt="image" src="https://github.com/user-attachments/assets/d366ae6e-14ea-4d40-90c6-3c91c569da57" />
+  - 하나의 데이터 베이스에 모든 주문 정보가 들어가 있는거 확인 가능.
+
   
-
-
-
-
 
 
 
