@@ -143,8 +143,238 @@
     - Consumer는 리스너가 데이터를 받음
     <img width="2052" height="1154" alt="image" src="https://github.com/user-attachments/assets/324f23dd-f7c3-4005-968e-363580ae91ff" />
 
-
-
-
-
+  120. Catalogs Microservice 수정
+       
+    package com.dogmeeting.catalogservice.messagequeue;
+  
+    import com.dogmeeting.catalogservice.jpa.CatalogEntity;
+    import com.dogmeeting.catalogservice.jpa.CatalogRepository;
+    import com.fasterxml.jackson.core.JsonProcessingException;
+    import com.fasterxml.jackson.core.type.TypeReference;
+    import com.fasterxml.jackson.databind.ObjectMapper;
+    import lombok.extern.slf4j.Slf4j;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.kafka.annotation.KafkaListener;
+    import org.springframework.stereotype.Service;
     
+    import java.util.HashMap;
+    import java.util.Map;
+    
+    @Service
+    @Slf4j
+    public class KafkaConsumer {
+    
+        CatalogRepository catalogRepository;
+    
+        @Autowired
+        public KafkaConsumer(CatalogRepository catalogRepository) {
+            this.catalogRepository = catalogRepository;
+        }
+    
+        /* Kafka Listener: 지정된 토픽으로부터 메시지를 수신 */
+        @KafkaListener(topics = "example-catalog-topic")
+        public void updateQty(String kafkaMessage) {
+            log.info("Kafka Message: -> {}", kafkaMessage);
+    
+            Map<Object, Object> map = new HashMap<>();
+            ObjectMapper mapper = new ObjectMapper();
+    
+            try {
+                /* JSON String 형태의 메시지를 Map 객체로 변환 (Deserialization) */
+                map = mapper.readValue(
+                        kafkaMessage,
+                        new TypeReference<Map<Object, Object>>() {}
+                );
+            } catch (JsonProcessingException ex) {
+                log.error("JSON Parsing Error: {}", ex.getMessage());
+                ex.printStackTrace();
+            }
+    
+            /* 1. DB에서 해당 상품 조회 */
+            CatalogEntity catalogEntity =
+                    catalogRepository.findByProductId(
+                            (String) map.get("productId")
+                    );
+    
+            /* 2. 데이터가 존재할 경우 재고 차감 후 저장 */
+            if (catalogEntity != null) {
+                int currentStock = catalogEntity.getStock();
+                int orderQty = (Integer) map.get("qty");
+    
+                // 현재 재고 - 주문 수량 업데이트
+                catalogEntity.setStock(currentStock - orderQty);
+    
+                catalogRepository.save(catalogEntity);
+                log.info("Catalog Stock Updated. Product: {}, New Stock: {}", 
+                         map.get("productId"), catalogEntity.getStock());
+            }
+        }
+    }
+  
+    package com.dogmeeting.catalogservice.messagequeue;
+    
+    import org.apache.kafka.clients.consumer.ConsumerConfig;
+    import org.apache.kafka.common.serialization.StringDeserializer;
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.context.annotation.Configuration;
+    import org.springframework.kafka.annotation.EnableKafka;
+    import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
+    import org.springframework.kafka.core.ConsumerFactory;
+    import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+    import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+    
+    import java.util.HashMap;
+    import java.util.Map;
+    
+    @EnableKafka
+    @Configuration
+    public class KafkaConsumerConfig {
+    
+        @Bean
+        public ConsumerFactory<String, String> consumerFactory() {
+            Map<String, Object> properties = new HashMap<>();
+            properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+            properties.put(ConsumerConfig.GROUP_ID_CONFIG, "consumerGroupId");
+            properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+            properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+    
+            return new DefaultKafkaConsumerFactory<>(properties);
+        }
+    
+        @Bean
+        public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
+            ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory
+                    = new ConcurrentKafkaListenerContainerFactory<>();
+            kafkaListenerContainerFactory.setConsumerFactory(consumerFactory());
+    
+            return kafkaListenerContainerFactory;
+        }
+    }
+
+  121. Orders Microservice 수정
+       
+    package com.dogmeeting.orderservice.messagequeue;
+  
+    import com.dogmeeting.orderservice.dto.OrderDto;
+    import com.fasterxml.jackson.core.JsonProcessingException;
+    import com.fasterxml.jackson.databind.ObjectMapper;
+    import lombok.extern.slf4j.Slf4j;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.kafka.core.KafkaTemplate;
+    import org.springframework.stereotype.Service;
+    
+    @Service
+    @Slf4j
+    public class KafkaProducer {
+        private KafkaTemplate<String, String> kafkaTemplate;
+    
+        @Autowired
+        public KafkaProducer(KafkaTemplate<String, String> kafkaTemplate) {
+            this.kafkaTemplate = kafkaTemplate;
+        }
+    
+        public OrderDto send(String topic, OrderDto orderDto) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonInString = "";
+            try {
+                jsonInString = objectMapper.writeValueAsString(orderDto);
+            } catch (JsonProcessingException ex) {
+                ex.printStackTrace();
+            }
+    
+            kafkaTemplate.send(topic, jsonInString);
+            log.info("kafka Producer sent data from the Order microservice: " + orderDto);
+            return orderDto;
+        }
+    }
+  
+  
+    package com.dogmeeting.orderservice.messagequeue;
+    
+    import org.apache.kafka.clients.producer.ProducerConfig;
+    import org.apache.kafka.common.serialization.StringSerializer;
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.context.annotation.Configuration;
+    import org.springframework.kafka.annotation.EnableKafka;
+    import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
+    import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+    import org.springframework.kafka.core.KafkaTemplate;
+    import org.springframework.kafka.core.ProducerFactory;
+    
+    import java.util.HashMap;
+    import java.util.Map;
+    
+    @EnableKafka
+    @Configuration
+    public class KafkaProducerConfig {
+    
+        @Bean
+        public ProducerFactory<String, String> producerFactory() {
+            Map<String, Object> properties = new HashMap<>();
+            properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+            properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+            properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+    
+            return new DefaultKafkaProducerFactory<>(properties);
+        }
+    
+        @Bean
+        public KafkaTemplate<String, String> kafkaTemplate() {
+            return new KafkaTemplate<>(producerFactory());
+        }
+    }
+  
+  
+  
+    @PostMapping("/{userId}/orders")
+    public ResponseEntity<ResponseOrder> createOrder(@PathVariable("userId") String userId,
+                                                     @RequestBody RequestOrder orderDetails) {
+        log.info("Before add orders data");
+        ModelMapper mapper = new ModelMapper();
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        /* jpa */
+        OrderDto orderDto = mapper.map(orderDetails, OrderDto.class);
+        orderDto.setUserId(userId);
+        OrderDto createdOrder = orderService.createOrder(orderDto);
+    
+        ResponseOrder responseOrder = mapper.map(createdOrder, ResponseOrder.class);
+    
+        /* send this order to the kafka */
+        kafkaProducer.send("example-catalog-topic", orderDto);
+    
+        log.info("After added orders data");
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseOrder);
+    }
+  
+123. Multi Orders Microservice 사용에 대한 데이터 동기화 문제
+  <img width="2046" height="1150" alt="image" src="https://github.com/user-attachments/assets/076824e6-487d-41a6-b8aa-45700bc4fc71" />
+  - Orders 데이터도 분산 저장 -> 동기화 문제
+  <img width="1554" height="875" alt="image" src="https://github.com/user-attachments/assets/0e9132af-7b21-40b3-bed3-8598ef935298" />
+  - 데이터를 5개 insert했으나 각각의 디비에 나뉘어서 저장
+  <img width="1560" height="877" alt="image" src="https://github.com/user-attachments/assets/8dafc070-f359-4690-a733-14a20ecba99e" />
+  - 데이터를 5개 insert했으나 각각의 디비에 나뉘어서 저장
+  <img width="1541" height="1073" alt="image" src="https://github.com/user-attachments/assets/8d607059-0988-441b-9adf-d964a3b601cd" />
+  - 각각의 디비 데이터를 불러옴
+    
+124. Kafka Connect를 활용한 단일 데이터베이스를 사용
+  <img width="2059" height="1154" alt="image" src="https://github.com/user-attachments/assets/7aac1394-2a39-42d4-a7c7-285ca1884966" />
+  <img width="2051" height="1151" alt="image" src="https://github.com/user-attachments/assets/0bcc0c09-b3ac-4f1b-8cba-b400099e8704" />
+  - h2 -> mariadb로 변경
+  <img width="2055" height="1097" alt="image" src="https://github.com/user-attachments/assets/de7e6af5-5089-46d1-b84f-aa54514900df" />
+  
+125. Orders Microservice 수정 - MariaDB
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
