@@ -346,3 +346,20 @@
         return ResponseEntity.status(HttpStatus.CREATED).body(responseOrder);
     }
   
+123. Multi Orders Microservice 사용에 대한 데이터 동기화 문제
+  <img width="2046" height="1150" alt="image" src="https://github.com/user-attachments/assets/076824e6-487d-41a6-b8aa-45700bc4fc71" />
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
