@@ -296,6 +296,30 @@ MSA 환경에서는 하나의 요청이 여러 서비스(UserService, OrderServi
 </dependency>
 ```
 
+### 최신 프로젝트 샘플 코드는 아래 Github에서 확인하시기 바랍니다. 
+
+- https://github.com/joneconsulting/toy-msa/tree/springboot3.2
+
+- OpenJDK 21
+- Spring Boot 3.2.2 + Spring Cloud 2023.0.0 
+```xml
+<!-- zipkin -->
+<dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-observation</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-tracing-bridge-brave</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>io.zipkin.reporter2</groupId>
+    <artifactId>zipkin-reporter-brave</artifactId>
+</dependency>
+```
+
 ### 이미지 위치
 - 다운로드_6.png
 
@@ -470,6 +494,142 @@ UserService → OrderService
 <img width="2000" height="1414" alt="다운로드_14" src="https://github.com/user-attachments/assets/4b7ecf84-f8cd-434d-9bcb-2a1126858830" />
 <img width="2000" height="1414" alt="다운로드_15" src="https://github.com/user-attachments/assets/7ee596dd-a584-4f99-9107-90af618e584d" />
 <img width="2000" height="1414" alt="다운로드_16" src="https://github.com/user-attachments/assets/278356a2-dc68-472b-b237-8df72eb55d11" />
+
+# 134. Spring Cloud Sleuth + Zipkin을 이용한 Microservice의 분산 추적 ②
+# 1. 기존 방식 (Spring Boot 2.x)
+
+## 기존 의존성
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-sleuth</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-zipkin</artifactId>
+</dependency>
+```
+
+---
+
+## 기존 로그 형태
+
+```text
+[order-service, ae377e3700a77724, as377e3900a77723]
+```
+
+구조:
+
+```text
+[서비스명, TraceId, SpanId]
+```
+
+### 설명
+
+- order-service
+  - 서비스 이름
+- ae377e3700a77724
+  - Trace ID
+- as377e3900a77723
+  - Span ID
+
+즉 로그만 봐도:
+
+- 어떤 요청인지
+- 어떤 서비스 흐름인지
+- 어떤 Span 인지
+
+즉시 확인 가능했다.
+
+---
+
+# 2. 최신 방식 (Spring Boot 3.x)
+
+## 환경
+
+- OpenJDK 21
+- Spring Boot 3.2.2
+- Spring Cloud 2023.0.0
+
+---
+
+## Github 예제
+
+- https://github.com/joneconsulting/toy-msa/tree/springboot3.2
+
+---
+
+## 변경된 의존성
+
+```xml
+<!-- zipkin -->
+<dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-observation</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-tracing-bridge-brave</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>io.zipkin.reporter2</groupId>
+    <artifactId>zipkin-reporter-brave</artifactId>
+</dependency>
+```
+
+---
+
+# 3. 로그 출력 방식 변경
+
+## Boot 3.x 기본 로그
+- 의존성 변경으로 인한 [order-service] [o-auto-1-exec-1]로 수정
+<img width="2728" height="660" alt="image" src="https://github.com/user-attachments/assets/cde8fd6d-8475-4406-b234-1e4c92c56d7c" />
+```text
+[order-service] [o-auto-1-exec-1]
+```
+
+구조:
+
+```text
+[서비스명] [스레드명]
+```
+
+---
+
+## 변경 이유
+
+Spring Boot 3.x 부터는:
+
+```text
+Spring Cloud Sleuth 제거
+→ Micrometer Tracing 사용
+```
+
+구조로 변경되면서,
+기본 로그 패턴에서도 TraceId / SpanId 출력이 제거되었다.
+
+따라서:
+
+- Trace ID
+- Span ID
+
+를 다시 출력하려면 logging 패턴을 직접 설정해야 한다.
+
+---
+
+# 4. TraceId / SpanId 다시 출력하기
+
+## application.yaml 설정
+
+```yaml
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+```
 
 
 
