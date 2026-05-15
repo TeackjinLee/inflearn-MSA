@@ -4,9 +4,20 @@ server:
 spring:
   application:
     name: order-service
-#  zipkin:
-#    base-url: http://127.0.0.1:9411
-#    enabled: true
+  cloud:
+    openfeign:
+      micrometer:
+        enabled: true
+  #  rabbitmq:
+  #    host: 127.0.0.1
+  #    port: 5672
+  #    username: guest
+  #    password: guest
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
   h2:
     console:
       enabled: true
@@ -18,10 +29,6 @@ spring:
     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;
     username: sa
     password:
-#    url: jdbc:mariadb://localhost:3306/mydb
-#    driver-class-name: org.mariadb.jdbc.Driver
-#    username: root
-#    password: 123123123
   jpa:
     hibernate:
       ddl-auto: update
@@ -37,23 +44,24 @@ eureka:
 
 logging:
   level:
-    com.dogmeeting.orderservice: DEBUG
+    org.springframework.security: DEBUG
   pattern:
-    correlation: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+    level: "%5p [${spring.application.name},traceId=%X{traceId:-},spanId=%X{spanId:-}]"
 
 management:
   tracing:
     sampling:
       probability: 1.0
-    propagation:
-      type: b3
-    enabled: true
   zipkin:
     tracing:
       endpoint: http://localhost:9411/api/v2/spans
+  endpoints:
     web:
       exposure:
         include:
+          - refresh
           - health
-          - httptrace
+          - beans
           - info
+          - busrefresh
+          - env

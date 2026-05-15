@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: user-service
+  cloud:
+    openfeign:
+      micrometer:
+        enabled: true
 #  zipkin:
 #    base-url: http://127.0.0.1:9411
 #    enabled: true
@@ -47,9 +51,10 @@ spring:
 
 logging:
   level:
+    org.springframework.security: DEBUG
     com.dogmeeting.userservice.client: DEBUG
   pattern:
-    correlation: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+    level: "%5p [${spring.application.name},traceId=%X{traceId:-},spanId=%X{spanId:-}]"
 
 eureka:
   instance:
@@ -70,14 +75,13 @@ greeting:
 management:
   tracing:
     sampling:
-      probability: 1.0
-    propagation:
-      consume: B3
-      produce: B3_MULTI
-  zipkin:
-    tracing:
-      endpoint: http://localhost:9411/api/v2/spans
-
+      probability: 1.0      # 1.0이면 100% 샘플링 (개발/테스트 환경에서 유용)
+  propagation:
+    consume: w3c
+    produce: w3c
+    otlp:
+      tracing:
+        endpoint: http://localhost:9411/api/v2/spans   # Zipkin HTTP endpoint 사용
   endpoints:
     web:
       exposure:
