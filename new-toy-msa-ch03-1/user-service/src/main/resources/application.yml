@@ -4,6 +4,13 @@ server:
 spring:
   application:
     name: user-service
+#  zipkin:
+#    base-url: http://127.0.0.1:9411
+#    enabled: true
+#  sleuth:
+#    sampler:
+#      probability: 1.0
+
   rabbitmq:
     host: 127.0.0.1
     port: 5672
@@ -31,10 +38,19 @@ spring:
       name: user
       password: $2a$10$xvEmKZTCWTSpOGK1x9p.LepRp0Lamvbqj3nk88HDlfa5yVQxdltdK
 
+#logging:
+#  level:
+##    org.springframework.security: DEBUG
+#    com.dogmeeting.userservice.client: DEBUG
+#  pattern:
+#    correlation: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+
 logging:
   level:
-    org.springframework.security: DEBUG
     com.dogmeeting.userservice.client: DEBUG
+  pattern:
+    correlation: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
@@ -52,6 +68,16 @@ greeting:
 #  expiration-time: 86400000 # 10 days
 
 management:
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      consume: B3
+      produce: B3_MULTI
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+
   endpoints:
     web:
       exposure:
