@@ -562,8 +562,13 @@ UserService → OrderService
 ---
 
 ## 변경된 의존성
-
-```xml
+``` pon.xml
+<dependency>
+    <groupId>io.github.openfeign</groupId>
+    <artifactId>feign-micrometer</artifactId>
+</dependency>
+```
+``` pon.xml
 <!-- zipkin -->
 <dependency>
     <groupId>io.micrometer</groupId>
@@ -626,11 +631,15 @@ Spring Cloud Sleuth 제거
 ## application.yaml 설정
 
 ```yaml
+spring:
+  cloud:
+    openfeign:
+      micrometer:
+        enabled: true
 logging:
   pattern:
     level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
 ```
-
 
 
 
