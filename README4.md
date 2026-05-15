@@ -263,8 +263,7 @@ Zipkin 서버가 실행되면 웹 브라우저를 통해 수집된 트래킹 데
    - 개발자는 Zipkin UI에 접속하여 "누가 누구를 호출했는지", "어느 구간에서 몇 ms가 걸렸는지", "정상 처리되었는지"를 한눈에 확인하고 분석합니다.
 
 > **📸 이미지 추천 4: Sleuth와 Zipkin 연동 프로세스 도식화** > *설명: 서비스 A -> B -> C 호출 시 Trace/Span ID가 어떻게 유지/변경되고 Zipkin으로 전달되는지 보여주는 전체 시스템 구성도
-<img width="2000" height="1414" alt="image" src="https://github.com/user-attachments/assets/fa5f5f43-af46-4404-8300-fec9de495399" />
-*
+<img width="2000" height="1414" alt="image" src="https://github.com/user-attachments/assets/fa5f5f43-af46-4404-8300-fec9de495399" />*
 
 
 
