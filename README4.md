@@ -1,13 +1,13 @@
 # SECTION_14. 장애처리와 Microservice 분산 추적
 
-## 129.색션소개
+# 129.색션소개
   - CircuitBreaker(회복성패턴)
   - Resilience4j
   - Distributed Tracing
   - Trace ID and Span ID
   - Zipkin server 활용
 
-## 130. CircuitBreaker와 Resilience4J의 사용
+# 130. CircuitBreaker와 Resilience4J의 사용
 ## 마이크로서비스 통신 장애 대응: Circuit Breaker & Resilience4j
 
 이 문서는 마이크로서비스 아키텍처(MSA)에서 서비스 간 통신 시 발생할 수 있는 오류를 인지하고, 이를 서킷 브레이커를 통해 해결하는 방법을 정리한 가이드입니다.
@@ -79,7 +79,7 @@
 - **slidingWindowSize**: 통계에 반영할 기록의 수.
 - **timeoutDuration**: TimeLimiter 설정. 특정 시간(예: 4초) 동안 응답이 없으면 장애로 간주합니다.
 
-> **[이미지 추천 5: 상세 설정 파라미터 설명 화면]**
+> **<img width="2000" height="1414" alt="다운로드 (5)" src="https://github.com/user-attachments/assets/68e113a2-198a-479c-96df-62b268c2515f" />**
 > *설명: 각 설정 옵션들의 의미와 기본값이 정리된 강의 슬라이드*
 
 ---
@@ -99,7 +99,7 @@
   <img width="2000" height="1414" alt="다운로드 (9)" src="https://github.com/user-attachments/assets/8274351f-f8c4-47a9-bf39-befb425debfe" />
 
 
-## 131. Users Microservice에 CircuitBreaker 적용
+# 131. Users Microservice에 CircuitBreaker 적용
   <img width="3024" height="1964" alt="image" src="https://github.com/user-attachments/assets/f6ff65dd-e9bc-403d-b78f-895065581e0c" />
   - OrderService 장애가 UserService 전체 장애로 이어지면 안 된다
   
@@ -175,9 +175,96 @@
   }
    ```
 
+# 132. 분산 추적의 개요 Zipkin 서버 설치
+## [정리] 마이크로서비스 분산 추적: Zipkin & Spring Cloud Sleuth
 
+이 문서는 MSA 환경에서 서비스 간 호출 흐름을 파악하고 장애를 진단하기 위한 **분산 추적(Distributed Tracing)** 기술을 정리한 문서입니다.
 
+---
 
+### 1. 분산 추적(Distributed Tracing)이란?
+
+### 1.1 필요성
+- 마이크로서비스는 독립적으로 작동하지 않고 연쇄적으로 호출됩니다.
+- 요청이 어디를 거쳐 가는지, 어느 단계에서 에러가 나거나 시간이 지연되는지(병목 현상) 파악하기 위해 필수적입니다.
+
+> **📸 <img width="2000" height="1414" alt="다운로드_1" src="https://github.com/user-attachments/assets/113ab0aa-3aef-4cbb-adda-d0fe820c75ea" />**
+> (설명: User -> Order -> Catalog 등 서비스들이 서로 거미줄처럼 얽혀 통신하는 강의 화면)
+
+---
+
+### 2. Zipkin (집킨)
+
+트위터에서 개발한 분산 환경의 타이밍 데이터 수집 및 추적 시스템입니다. 구글의 **Dapper** 논문을 바탕으로 만들어진 오픈소스입니다.
+
+#### 2.1 주요 구성 요소
+- **Collector**: 각 마이크로서비스가 보내는 트래킹 정보를 수집합니다.
+- **Query Service**: 수집된 데이터를 조회합니다.
+- **Database**: 데이터를 저장합니다. (기본은 메모리 저장, 설정 시 DB 가능)
+- **Web UI**: 수집된 정보를 대시보드로 시각화합니다.
+
+#### 2.2 핵심 용어 (Trace & Span)
+- **Trace ID**: 전체 요청 흐름을 관통하는 고유 ID입니다. 요청의 시작부터 끝까지 동일하게 유지됩니다.
+- **Span ID**: 각 서비스 호출(작업 단위)마다 부여되는 고유 ID입니다. 
+
+> **📸 <img width="2000" height="1414" alt="다운로드_2" src="https://github.com/user-attachments/assets/1476fc4f-7f9b-4880-9614-dbd41630cc76" />**
+> (설명: 서비스 간 이동 시 Trace ID는 고정되고 Span ID가 새로 생성되는 다이어그램)
+
+---
+
+### 3. Spring Cloud Sleuth
+
+Spring Boot 어플리케이션에서 Zipkin과 연동하기 위해 사용하는 라이브러리입니다.
+
+- **역할**: 로그 파일에 `Trace ID`와 `Span ID`를 자동으로 생성하고 주입합니다.
+- **연동 기술**: Servlet Filter, RestTemplate, FeignClient 등과 연동되어 호출 시마다 추적 정보를 헤더에 실어 보냅니다.
+
+---
+
+### 4. Zipkin 설치 및 실행
+
+가장 간편하게 실행하는 방법은 `.jar` 파일을 이용하는 방법입니다.
+
+#### 4.1 실행 명령어
+```bash
+# 최신 파일 다운로드 (Unix/Mac 기준)
+curl -sSL [https://zipkin.io/quickstart.sh](https://zipkin.io/quickstart.sh) | bash -s
+
+# jar 파일 실행
+java -jar zipkin.jar
+```
+
+#### 4.2 Web UI 접속
+Zipkin 서버가 실행되면 웹 브라우저를 통해 수집된 트래킹 데이터를 시각적으로 확인할 수 있습니다.
+
+- **포트 번호**: `9411` (기본 설정)
+- **접속 주소**: [http://localhost:9411](http://localhost:9411)
+
+> **📸 이미지 추천 3: Zipkin 대시보드 메인 화면** > *설명: 9411 포트로 접속했을 때 보이는 대시보드와 검색 필터(Service Name, Span Name 등) 화면*
+
+---
+
+### 5. 전체 동작 프로세스 요약
+
+분산 환경에서 하나의 요청이 처리되는 전체 흐름은 다음과 같습니다.
+
+1. **최초 요청 (Trace ID 생성)**
+   - 사용자가 시스템의 진입점(예: 마이크로서비스 A)에 요청을 보냅니다.
+   - **Spring Cloud Sleuth**가 해당 요청에 대해 고유한 **Trace ID**를 생성합니다.
+
+2. **정보 전파 (Span ID 발급)**
+   - 서비스 A가 내부 로직 처리 후 서비스 B를 호출합니다.
+   - 이때 동일한 **Trace ID**를 HTTP 헤더 등에 실어 공유하며, 서비스 B 호출이라는 개별 작업 단위를 나타내는 새로운 **Span ID**가 발급됩니다.
+
+3. **데이터 전송 (Zipkin Reporter)**
+   - 각 마이크로서비스는 자신의 작업이 완료되면, 수집된 추적 정보(Trace ID, Span ID, 소요 시간 등)를 **Zipkin 서버**로 전송합니다.
+
+4. **시각화 (Zipkin UI)**
+   - 개발자는 Zipkin UI에 접속하여 "누가 누구를 호출했는지", "어느 구간에서 몇 ms가 걸렸는지", "정상 처리되었는지"를 한눈에 확인하고 분석합니다.
+
+> **📸 이미지 추천 4: Sleuth와 Zipkin 연동 프로세스 도식화** > *설명: 서비스 A -> B -> C 호출 시 Trace/Span ID가 어떻게 유지/변경되고 Zipkin으로 전달되는지 보여주는 전체 시스템 구성도
+<img width="2000" height="1414" alt="image" src="https://github.com/user-attachments/assets/fa5f5f43-af46-4404-8300-fec9de495399" />
+*
 
 
 
