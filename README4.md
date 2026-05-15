@@ -265,6 +265,212 @@ Zipkin 서버가 실행되면 웹 브라우저를 통해 수집된 트래킹 데
 > **📸 이미지 추천 4: Sleuth와 Zipkin 연동 프로세스 도식화** > *설명: 서비스 A -> B -> C 호출 시 Trace/Span ID가 어떻게 유지/변경되고 Zipkin으로 전달되는지 보여주는 전체 시스템 구성도
 <img width="2000" height="1414" alt="image" src="https://github.com/user-attachments/assets/fa5f5f43-af46-4404-8300-fec9de495399" />*
 
+# 133. Spring Cloud Sleuth + Zipkin을 이용한 Microservice의 분산 추적 ①
+
+## 강의 개요
+MSA 환경에서는 하나의 요청이 여러 서비스(UserService, OrderService 등)를 거쳐 처리된다.
+
+이때:
+
+- 어떤 서비스가 호출되었는지
+- 어디서 장애가 발생했는지
+- 응답 시간이 얼마나 걸렸는지
+
+추적하기 위해 `Spring Cloud Sleuth`와 `Zipkin`을 사용한다.
+
+---
+
+# 1. Sleuth + Zipkin 설정
+
+## pom.xml 의존성 추가
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-sleuth</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-zipkin</artifactId>
+</dependency>
+```
+
+### 이미지 위치
+- 다운로드_6.png
+
+---
+
+## application.yaml 설정
+
+```yaml
+spring:
+  zipkin:
+    base-url: http://localhost:9411
+    enabled: true
+
+sleuth:
+  sampler:
+    probability: 1.0
+```
+
+## 핵심 설정
+
+- `base-url`
+  - Zipkin 서버 주소
+- `enabled: true`
+  - Zipkin 활성화
+- `probability: 1.0`
+  - 모든 Trace 정보를 Zipkin으로 전송
+
+<img width="2000" height="1414" alt="다운로드_6" src="https://github.com/user-attachments/assets/c22f15a7-f1b2-4a49-93d4-7b0cc8432747" />
+
+---
+
+# 2. Trace ID / Span ID
+
+## Trace ID
+
+하나의 요청 전체를 식별하는 ID
+
+## Span ID
+
+각 서비스 작업 단위를 식별하는 ID
+
+예:
+
+```text
+Client
+  ↓
+UserService
+  ↓
+OrderService
+```
+
+- Trace ID는 동일
+- Span ID는 서비스마다 새롭게 생성
+
+<img width="2000" height="1414" alt="image" src="https://github.com/user-attachments/assets/60b7e0d8-0f76-4354-b236-d13012e56218" />
+<img width="2000" height="1414" alt="image" src="https://github.com/user-attachments/assets/08aefeea-0752-4c57-aeae-a224cf591811" />
+
+
+---
+
+# 3. 로그 추적
+
+Sleuth 적용 후 로그에 Trace 정보가 자동 추가된다.
+
+```text
+[서비스명, TraceId, SpanId]
+```
+
+이를 통해:
+
+- 서비스 호출 흐름
+- 장애 발생 위치
+- 응답 시간
+
+을 확인할 수 있다.
+
+### 이미지 위치
+<img width="2000" height="1414" alt="image" src="https://github.com/user-attachments/assets/8f56fb54-6672-439d-be40-3c777be72fd5" />
+<img width="2000" height="1414" alt="image" src="https://github.com/user-attachments/assets/e5d55370-465f-4edf-9500-6b468b759b38" />
+
+
+---
+
+# 4. Zipkin에서 Trace 확인
+
+로그에서 확인한 Trace ID를 Zipkin UI에서 검색하면:
+
+- 어떤 서비스가 호출되었는지
+- 어떤 메소드가 실행되었는지
+- 처리 시간이 얼마나 걸렸는지
+
+확인할 수 있다.
+
+<img width="2000" height="1414" alt="image" src="https://github.com/user-attachments/assets/314d4742-ba88-4421-bf1c-8487e664753e" />
+<img width="2000" height="1414" alt="image" src="https://github.com/user-attachments/assets/0ef88320-db8c-4378-b607-2d70875cecb2" />
+<img width="2000" height="1414" alt="image" src="https://github.com/user-attachments/assets/c5afa9f8-9c5d-45c7-8bb3-15f24b69eff8" />
+
+
+---
+
+# 5. Dependency 분석
+
+Zipkin의 Dependency 메뉴에서는:
+
+```text
+UserService → OrderService
+```
+
+같은 서비스 간 호출 관계를 시각적으로 확인할 수 있다.
+
+또한:
+
+- 호출 횟수
+- 성공 횟수
+- 실패 횟수
+
+도 확인 가능하다.
+
+### 이미지 위치
+- 다운로드_13.png
+<img width="2000" height="1414" alt="image" src="https://github.com/user-attachments/assets/1186a89f-1f76-468b-a0c2-5fcd00065816" />
+
+---
+
+# 6. 장애 테스트
+
+강의에서는 OrderService에서 강제로 Exception을 발생시켜 장애 상황을 테스트했다.
+
+장애 발생 시:
+
+- Zipkin에서 에러 표시
+- 실패 Trace 확인
+- 실패 서비스 추적
+
+이 가능하다.
+
+### 이미지 위치
+<img width="2000" height="1414" alt="image" src="https://github.com/user-attachments/assets/ce258b51-7e8b-431e-9f7a-e0c0b060d0ff" />
+<img width="2000" height="1414" alt="image" src="https://github.com/user-attachments/assets/1d1a8654-e2e3-4184-90d9-47c32513f272" />
+
+---
+
+# 핵심 정리
+
+## Sleuth 역할
+
+- Trace ID 생성
+- Span ID 생성
+- 서비스 간 Trace 전파
+
+## Zipkin 역할
+
+- Trace 시각화
+- 서비스 호출 흐름 분석
+- 장애 및 성능 분석
+
+## 핵심 포인트
+
+- 같은 요청은 동일한 Trace ID 사용
+- 서비스마다 다른 Span ID 생성
+- Zipkin으로 MSA 호출 흐름 추적 가능
+
+## 기존강의자료
+<img width="2000" height="1414" alt="다운로드_6" src="https://github.com/user-attachments/assets/7a984759-f75d-4c06-a629-78d1c79b5ecc" />
+<img width="2000" height="1414" alt="다운로드_7" src="https://github.com/user-attachments/assets/7f42258a-f710-49d0-8234-aabeca9d42fc" />
+<img width="2000" height="1414" alt="다운로드_8" src="https://github.com/user-attachments/assets/a8204881-9b8d-4ef9-aee5-9e26ad805850" />
+<img width="2000" height="1414" alt="다운로드_9" src="https://github.com/user-attachments/assets/18cb77e4-6203-4fb2-9ecf-2070e07a004a" />
+<img width="2000" height="1414" alt="다운로드_10" src="https://github.com/user-attachments/assets/4b3a0189-f1cc-4fa0-9c87-27da1dc04421" />
+<img width="2000" height="1414" alt="다운로드_11" src="https://github.com/user-attachments/assets/184b2fc6-87db-4284-a025-db7a38e053fa" />
+<img width="2000" height="1414" alt="다운로드_12" src="https://github.com/user-attachments/assets/de2ac56d-3ed6-4b7c-a08b-82463d1af3d3" />
+<img width="2000" height="1414" alt="다운로드_13" src="https://github.com/user-attachments/assets/012b1eff-ac50-434d-9405-dae7cecb77e2" />
+<img width="2000" height="1414" alt="다운로드_14" src="https://github.com/user-attachments/assets/4b7ecf84-f8cd-434d-9bcb-2a1126858830" />
+<img width="2000" height="1414" alt="다운로드_15" src="https://github.com/user-attachments/assets/7ee596dd-a584-4f99-9107-90af618e584d" />
+<img width="2000" height="1414" alt="다운로드_16" src="https://github.com/user-attachments/assets/278356a2-dc68-472b-b237-8df72eb55d11" />
+
 
 
 
