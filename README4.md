@@ -207,13 +207,13 @@
 - **Trace ID**: 전체 요청 흐름을 관통하는 고유 ID입니다. 요청의 시작부터 끝까지 동일하게 유지됩니다.
 - **Span ID**: 각 서비스 호출(작업 단위)마다 부여되는 고유 ID입니다. 
 
-> **📸 <img width="2000" height="1414" alt="다운로드_2" src="https://github.com/user-attachments/assets/1476fc4f-7f9b-4880-9614-dbd41630cc76" />**
+> **📸 <img width="2000" height="1414" alt="다운로드_1" src="https://github.com/user-attachments/assets/113ab0aa-3aef-4cbb-adda-d0fe820c75ea" />**
 > (설명: 서비스 간 이동 시 Trace ID는 고정되고 Span ID가 새로 생성되는 다이어그램)
 
 ---
 
 ### 3. Spring Cloud Sleuth
-
+<img width="2000" height="1414" alt="다운로드_2" src="https://github.com/user-attachments/assets/1476fc4f-7f9b-4880-9614-dbd41630cc76" />
 Spring Boot 어플리케이션에서 Zipkin과 연동하기 위해 사용하는 라이브러리입니다.
 
 - **역할**: 로그 파일에 `Trace ID`와 `Span ID`를 자동으로 생성하고 주입합니다.
@@ -240,7 +240,7 @@ Zipkin 서버가 실행되면 웹 브라우저를 통해 수집된 트래킹 데
 - **포트 번호**: `9411` (기본 설정)
 - **접속 주소**: [http://localhost:9411](http://localhost:9411)
 
-> **📸 이미지 추천 3: Zipkin 대시보드 메인 화면** > *설명: 9411 포트로 접속했을 때 보이는 대시보드와 검색 필터(Service Name, Span Name 등) 화면*
+> **📸 이미지 추천 3: Zipkin 대시보드 메인 화면** > *설명: 9411 포트로 접속했을 때 보이는 대시보드와 검색 필터(Service Name, Span Name 등) 화면<img width="2000" height="1414" alt="다운로드_5" src="https://github.com/user-attachments/assets/be4c36d4-5987-4916-8bd5-19c6aeb0093e" />*
 
 ---
 
