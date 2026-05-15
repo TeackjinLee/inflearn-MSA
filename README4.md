@@ -20,7 +20,7 @@
 - **Unknown Host Exception**: 호출하려는 서비스의 주소를 찾을 수 없을 때 발생합니다.
 - **500 Server Exception / Timeout**: 대상 서비스가 응답하지 않거나 내부 오류가 발생했을 때 호출 측까지 장애가 전파됩니다.
 
-> **[이미지 추천 1: 포스트맨 호출 결과 및 에러 로그]**
+> **<img width="2000" height="1414" alt="다운로드(0)" src="https://github.com/user-attachments/assets/22b6ff5f-1797-4141-ba54-acd815dc4556" />**
 > *설명: 유저 서비스에서 오더 서비스를 호출했을 때 발생하는 500 에러와 인텔리제이 콘솔의 Unknown Host Exception 로그 화면*
 
 #### 1.2 장애 전파 (Cascading Failure)
@@ -34,7 +34,7 @@
 #### 2.1 개념
 장애가 발생하는 서비스에 대해 반복적인 호출을 하지 않도록 차단하는 '차단기' 역할을 합니다. 장애가 복구될 때까지 요청을 우회시켜 시스템 전체의 가용성을 보장합니다.
 
-> **[이미지 추천 2: 서킷 브레이커 작동 원리 다이어그램]**
+> **<img width="2000" height="1414" alt="다운로드 (1)" src="https://github.com/user-attachments/assets/0b889f83-bee0-4c53-87a7-6c4094c882ff" />**
 > *설명: Client - Circuit Breaker - Supplier 사이의 데이터 흐름과 장애 시 회피 경로를 보여주는 그림*
 
 #### 2.2 서킷 브레이커의 상태
