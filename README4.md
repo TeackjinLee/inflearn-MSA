@@ -296,6 +296,30 @@ MSA 환경에서는 하나의 요청이 여러 서비스(UserService, OrderServi
 </dependency>
 ```
 
+### 최신 프로젝트 샘플 코드는 아래 Github에서 확인하시기 바랍니다. 
+
+- https://github.com/joneconsulting/toy-msa/tree/springboot3.2
+
+- OpenJDK 21
+- Spring Boot 3.2.2 + Spring Cloud 2023.0.0 
+```xml
+<!-- zipkin -->
+<dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-observation</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-tracing-bridge-brave</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>io.zipkin.reporter2</groupId>
+    <artifactId>zipkin-reporter-brave</artifactId>
+</dependency>
+```
+
 ### 이미지 위치
 - 다운로드_6.png
 
