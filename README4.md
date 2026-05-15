@@ -67,7 +67,7 @@
 #### 4.2 기본 구현 방식 (Fallback)
 서비스 호출 시 문제가 생기면 `ArrayList`의 기본 생성자(빈 리스트)를 반환하도록 설정하여, "주문 내역이 없는 것"처럼 보여줌으로써 전체 시스템 에러를 방지합니다.
 
-> **<img width="2000" height="1414" alt="다운로드 (4)" src="https://github.com/user-attachments/assets/a50021c4-df34-4c18-af64-475e40297c8f" />**
+> **<img width="2000" height="1414" alt="image" src="https://github.com/user-attachments/assets/c5077961-79bd-4b9c-a9f8-60ea85f74e72" />**
 > *설명: getOrders() 메소드 호출 시 서킷 브레이커를 적용하고 fallback을 지정하는 Java 코드*
 
 #### 4.3 주요 상세 설정 (Customizing)
