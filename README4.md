@@ -685,20 +685,21 @@ logging:
 * **@Timed 어노테이션**: 스프링에서 `@Timed` 어노테이션을 제공하여, 자주 사용되는 메소드나 클래스에서 발생하는 시간 및 호출 빈도를 간편하게 체크할 수 있습니다.
 
 ### [유저 마이크로서비스 적용 예시]
+<img width="2000" height="1414" alt="다운로드_7" src="https://github.com/user-attachments/assets/c0ecff7b-7b6c-483b-8404-505c62a8666c" />
 1. **의존성 추가 (`pom.xml`)**: 마이크로미터에서 발생한 정보를 프로메테우스로 연동하여 활용하기 위해 관련 라이브러리 의존성(dependency)을 추가합니다. (`io.micrometer` 관련 Prometheus 연동 라이브러리)
 2. **설정 파일 반영 (`application.yml`)**: Actuator를 사용하여 Spring Boot가 제공하는 다양한 지표를 활용할 수 있도록 엔드포인트 노출 설정에 `prometheus`와 `metrics` 정보를 새롭게 추가합니다. (기존 health, info, bus-refresh 등에 이어서 추가)
 3. **코드 구현**: 
+  <img width="2000" height="1414" alt="다운로드_8" src="https://github.com/user-attachments/assets/2531bbe4-f043-407d-aaf2-e27dc9f0d9e5" />
    * `status()` 메소드 상단에 `@Timed(value = "users.status")` 어노테이션 추가
    * `welcome()` 메소드 상단에 `@Timed(value = "users.welcome")` 어노테이션 추가
-4. **결과 및 지표 확인**:
+5. **결과 및 지표 확인**:
+  <img width="2000" height="1414" alt="다운로드_9" src="https://github.com/user-attachments/assets/0a87917b-6797-4720-bbb4-0c77ad8e662d" />
    * 유저 서비스의 Actuator Metrics 엔드포인트(`.../actuator/metrics`)로 접속 시, 우리가 등록한 지표인 `users.status`와 `users.welcome` 항목이 포함되어 마크되어 있는 것을 확인할 수 있습니다.
    * 마크된 메소드들을 사용자가 호출하면 호출 정보가 Micrometer에 기록되고, 추후 연결될 프로메테우스에서 자동으로 사용할 수 있게 됩니다.
    * 프로메테우스 엔드포인트(`.../actuator/prometheus`)에 접속하면 `users.welcome` 및 `users.status` 정보와 함께 해당 메소드가 GET 방식으로 몇 번 호출되었는지, URI 경로(welcome, health 체크 등) 정보와 함께 지표가 정상적으로 생성 및 집계되는 것을 확인할 수 있습니다.
 
 
-<img width="2000" height="1414" alt="다운로드_7" src="https://github.com/user-attachments/assets/c0ecff7b-7b6c-483b-8404-505c62a8666c" />
-<img width="2000" height="1414" alt="다운로드_8" src="https://github.com/user-attachments/assets/2531bbe4-f043-407d-aaf2-e27dc9f0d9e5" />
-<img width="2000" height="1414" alt="다운로드_9" src="https://github.com/user-attachments/assets/0a87917b-6797-4720-bbb4-0c77ad8e662d" />
+
 
 
 
