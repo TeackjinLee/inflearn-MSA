@@ -116,3 +116,5 @@ management:
           - info
           - httpexchanges
           - busrefresh
+          - metrics
+          - prometheus

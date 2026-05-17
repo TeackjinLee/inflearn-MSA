@@ -91,3 +91,5 @@ management:
           - beans
           - info
           - busrefresh
+          - metrics
+          - prometheus

@@ -6,6 +6,7 @@ import com.dogmeeting.userservice.service.UserService;
 import com.dogmeeting.userservice.vo.Greeting;
 import com.dogmeeting.userservice.vo.RequestUser;
 import com.dogmeeting.userservice.vo.ResponseUser;
+import io.micrometer.core.annotation.Timed;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +39,8 @@ public class UserController {
         this.userService = userService;
     }
     // http://localhost:8000/user-service/health-check --> http://localhost:60000/health-check
-    @GetMapping("/health-check")
+    @GetMapping("/health_check")
+    @Timed(value="users.status", longTask = true)
     public String status() {
         return String.format("It's Working in User Service"
                 + ", port(local.server.port)=" + env.getProperty("local.server.port")
@@ -50,6 +52,7 @@ public class UserController {
     }
 
     @GetMapping("/welcome")
+    @Timed(value="users.welcome", longTask = true)
     public String welcome(HttpServletRequest request) {
         log.info("users.welcome ip: {}, {}, {}, {}", request.getRemoteAddr()
                 , request.getRemoteHost(), request.getRequestURI(), request.getRequestURL());
