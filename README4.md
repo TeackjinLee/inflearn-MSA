@@ -698,7 +698,22 @@ logging:
    * 마크된 메소드들을 사용자가 호출하면 호출 정보가 Micrometer에 기록되고, 추후 연결될 프로메테우스에서 자동으로 사용할 수 있게 됩니다.
    * 프로메테우스 엔드포인트(`.../actuator/prometheus`)에 접속하면 `users.welcome` 및 `users.status` 정보와 함께 해당 메소드가 GET 방식으로 몇 번 호출되었는지, URI 경로(welcome, health 체크 등) 정보와 함께 지표가 정상적으로 생성 및 집계되는 것을 확인할 수 있습니다.
 
-
+# 137. Micrometer 구현
+  ## spring boot 3버전대에서 metrics에서 정보 안나오는 문제 해결
+  ``` java
+  @Configuration
+  @EnableAspectJAutoProxy
+  public class MetricsConfig {
+  
+      @Bean
+      public TimedAspect timedAspect(MeterRegistry registry) {
+          return new TimedAspect(registry);
+      }
+  
+  }
+  ```
+  - 예시
+  ** https://semtul79.tistory.com/21 **
 
 
 
