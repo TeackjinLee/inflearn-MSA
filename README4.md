@@ -562,8 +562,13 @@ UserService → OrderService
 ---
 
 ## 변경된 의존성
-
-```xml
+``` pon.xml
+<dependency>
+    <groupId>io.github.openfeign</groupId>
+    <artifactId>feign-micrometer</artifactId>
+</dependency>
+```
+``` pon.xml
 <!-- zipkin -->
 <dependency>
     <groupId>io.micrometer</groupId>
@@ -626,10 +631,73 @@ Spring Cloud Sleuth 제거
 ## application.yaml 설정
 
 ```yaml
+spring:
+  cloud:
+    openfeign:
+      micrometer:
+        enabled: true
 logging:
   pattern:
     level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
 ```
+
+#Section_15. Microservice 모니터링
+
+# 136. Micrometer 개요
+
+## 1. 기존 모니터링 체계와 한계점 (이전 버전)
+* **기존 구성 요소**: 과거 스프링 부트 및 스프링 클라우드(2020 이전 버전) 환경에서는 마이크로서비스의 상태와 성능을 모니터링하기 위해 **Hystrix**와 **Turbine(터빈) 서버**를 주로 구성하여 사용했습니다.
+* **Turbine 서버의 역할**: 각 마이크로서비스에서 발생하는 각종 로그나 결과 데이터들을 'Hystrix 클라이언트 스트림'을 통해 전송받아 한곳에 모아서 로그 파일처럼 저장 및 보관하고 있다가, Hystrix 대시보드나 다른 모니터링 도구에 전달해 주는 역할을 수행했습니다. (예: 상품 주문 정보, 회원 확인, 배송 처리 마이크로서비스 등에서 로그 수집)
+* **Hystrix Dashboard**: 웹 대시보드 역할을 하며, Turbine 서버가 수집한 위치(예: `localhost:9999/turbine.stream`)를 지정하여 필요한 정보를 읽어와 화면에 시각화(도시화)해 줍니다. 
+  * 주요 표시 지표: 비즈니스 메소드의 성공 횟수, 실패 횟수, 서킷 브레이커(Circuit Breaker) 오픈/클로즈 상태, 실패 확률 등을 색상 및 수치(회색 네모칸의 크기 변화 등)로 표현합니다.
+* **기존 방식의 단점**:
+  * 하나의 웹 애플리케이션으로 기동되다 보니 시스템 리소스를 많이 차지합니다.
+  * 시계열(Time-series) 데이터로 보관하지 못하고 현재 발생한 데이터의 단편적인 내용만 보여줍니다. 따라서 어제 발생한 데이터나 지난 시간에 발생했던 로그 파일을 다시 검토하기 위해서는 데이터베이스(DB)와 추가로 연동해 주는 기능이 필요했습니다.
+
+<img width="2000" height="1414" alt="image" src="https://github.com/user-attachments/assets/4a892ef4-a358-473c-aa4f-3160e34115bb" />
+<img width="2000" height="1414" alt="image" src="https://github.com/user-attachments/assets/ddf14294-eb3c-4562-85cb-a7febd4a085b" />
+
+---
+
+## 2. 새로운 모니터링 솔루션의 도입
+* 최근 사용되고 있는 스프링 클라우드 버전(2020 버전 이후)에서는 기존에 사용되었던 개념들을 대신하여 새롭게 변경된 솔루션과 라이브러리를 가이드하고 있습니다. (예: Zuul 대용으로 Spring Cloud Gateway를, Hystrix 대용으로 Resilience4j를 사용하는 것과 같은 맥락)
+* **대체 가이드**: Hystrix Dashboard 및 Turbine 서버 대신 **Micrometer(마이크로미터)** 및 타 모니터링 시스템을 통해 대체할 수 있도록 지원하며, 본 과정에서는 **Micrometer, Prometheus(프로메테우스), Grafana(그라파나)** 솔루션을 연동하여 마이크로서비스 모니터링 시스템을 구축합니다.
+
+<img width="2000" height="1414" alt="다운로드_3" src="https://github.com/user-attachments/assets/a54460a3-cf9c-429b-a254-41d16e48a592" />
+<img width="2000" height="1414" alt="다운로드_4" src="https://github.com/user-attachments/assets/73fd5a74-cdc8-4704-872f-a6e61b8be5c1" />
+
+---
+
+## 3. 모니터링의 필요성과 Micrometer의 특징
+* **Micrometer(마이크로미터)**: 자바 기반 애플리케이션의 각종 지표(Metrics)를 수집하는 용도로 사용되는 프로그램(라이브러리)입니다. 애플리케이션 모니터링에 필요한 핵심 자료를 수집합니다.
+* **모니터링 지표의 예**: 현재 CPU 사용량, 메소드 사용량(호출 빈도), 네트워크 트래픽 발생량, 사용자 요청 호출 횟수 등을 수치화하고 시각화할 수 있도록 돕습니다.
+* **MSA 환경에서의 필요성**: 마이크로서비스 아키텍처는 하나의 단일 애플리케이션이 아니라 분산되어 있는 수십 개의 독립적인 소프트웨어(서비스)로 구성되어 있습니다. 따라서 각종 서버의 기능이 잘 작동하는지, 문제가 생긴 곳이나 병목 현상이 있는 곳은 없는지 파악하여 필요한 자원을 재할당해 주는 관리가 매우 중요합니다.
+* **스프링의 지원**: Spring 5 버전 및 Spring Boot 2 버전부터는 스프링에서 발생하는 다양한 지표를 마이크로미터 서비스로 기본 제공하고 있습니다. 개발자가 특별한 추가 작업을 하지 않더라도 엔드포인트에서 발생했던 작업에 대해 자동으로 수치를 기록하고 가져올 수 있으며, 프로메테우스나 다양한 모니터링 시스템과 유연하게 연동되어 시각화 도구 활용 시 매우 유용합니다.
+
+<img width="2000" height="1414" alt="다운로드_5" src="https://github.com/user-attachments/assets/489d5c80-caca-43f6-9507-e79625a395a2" />
+
+<img width="2000" height="1414" alt="다운로드_6" src="https://github.com/user-attachments/assets/5e30ba46-ccc9-4ae7-a986-d751f11ae08f" />
+
+---
+
+## 4. Micrometer 주요 기능 및 구현 (Timer & Actuator 연동)
+* **Timer(타이머)**: Micrometer를 사용할 때 가장 중요한 포인트 중 하나로, 짧은 지연 시간이나 이벤트 사용 빈도 등을 등록하고 체크하기 위해 사용되는 클래스입니다. 시계열로 이벤트 시간 및 호출 빈도 등을 제공합니다.
+* **@Timed 어노테이션**: 스프링에서 `@Timed` 어노테이션을 제공하여, 자주 사용되는 메소드나 클래스에서 발생하는 시간 및 호출 빈도를 간편하게 체크할 수 있습니다.
+
+### [유저 마이크로서비스 적용 예시]
+<img width="2000" height="1414" alt="다운로드_7" src="https://github.com/user-attachments/assets/c0ecff7b-7b6c-483b-8404-505c62a8666c" />
+1. **의존성 추가 (`pom.xml`)**: 마이크로미터에서 발생한 정보를 프로메테우스로 연동하여 활용하기 위해 관련 라이브러리 의존성(dependency)을 추가합니다. (`io.micrometer` 관련 Prometheus 연동 라이브러리)
+2. **설정 파일 반영 (`application.yml`)**: Actuator를 사용하여 Spring Boot가 제공하는 다양한 지표를 활용할 수 있도록 엔드포인트 노출 설정에 `prometheus`와 `metrics` 정보를 새롭게 추가합니다. (기존 health, info, bus-refresh 등에 이어서 추가)
+3. **코드 구현**: 
+  <img width="2000" height="1414" alt="다운로드_8" src="https://github.com/user-attachments/assets/2531bbe4-f043-407d-aaf2-e27dc9f0d9e5" />
+   * `status()` 메소드 상단에 `@Timed(value = "users.status")` 어노테이션 추가
+   * `welcome()` 메소드 상단에 `@Timed(value = "users.welcome")` 어노테이션 추가
+5. **결과 및 지표 확인**:
+  <img width="2000" height="1414" alt="다운로드_9" src="https://github.com/user-attachments/assets/0a87917b-6797-4720-bbb4-0c77ad8e662d" />
+   * 유저 서비스의 Actuator Metrics 엔드포인트(`.../actuator/metrics`)로 접속 시, 우리가 등록한 지표인 `users.status`와 `users.welcome` 항목이 포함되어 마크되어 있는 것을 확인할 수 있습니다.
+   * 마크된 메소드들을 사용자가 호출하면 호출 정보가 Micrometer에 기록되고, 추후 연결될 프로메테우스에서 자동으로 사용할 수 있게 됩니다.
+   * 프로메테우스 엔드포인트(`.../actuator/prometheus`)에 접속하면 `users.welcome` 및 `users.status` 정보와 함께 해당 메소드가 GET 방식으로 몇 번 호출되었는지, URI 경로(welcome, health 체크 등) 정보와 함께 지표가 정상적으로 생성 및 집계되는 것을 확인할 수 있습니다.
+
 
 
 
