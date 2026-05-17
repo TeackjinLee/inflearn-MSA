@@ -698,8 +698,276 @@ logging:
    * 마크된 메소드들을 사용자가 호출하면 호출 정보가 Micrometer에 기록되고, 추후 연결될 프로메테우스에서 자동으로 사용할 수 있게 됩니다.
    * 프로메테우스 엔드포인트(`.../actuator/prometheus`)에 접속하면 `users.welcome` 및 `users.status` 정보와 함께 해당 메소드가 GET 방식으로 몇 번 호출되었는지, URI 경로(welcome, health 체크 등) 정보와 함께 지표가 정상적으로 생성 및 집계되는 것을 확인할 수 있습니다.
 
+# 137. Micrometer 구현
+  ## spring boot 3버전대에서 metrics에서 정보 안나오는 문제 해결
+  ``` java
+  @Configuration
+  @EnableAspectJAutoProxy
+  public class MetricsConfig {
+  
+      @Bean
+      public TimedAspect timedAspect(MeterRegistry registry) {
+          return new TimedAspect(registry);
+      }
+  
+  }
+  ```
+  - 예시
+  ** https://semtul79.tistory.com/21 **
 
 
+# 138. Prometheus와 Grafana 개요
+
+## 강의 개요
+이번 강의에서는 Spring Cloud 기반 MSA 환경에서 **Prometheus**와 **Grafana**를 이용하여  
+Micrometer 및 Actuator가 제공하는 메트릭 정보를 수집하고 시각화하는 방법을 학습한다.
+
+---
+
+## 1. 클라우드 네이티브 모니터링의 필요성
+
+클라우드 네이티브 애플리케이션에서는 다음과 같은 항목들을 지속적으로 관찰해야 한다.
+
+- 서비스 상태(Health Check)
+- 메트릭(Metrics)
+- 로그(Log)
+- 분산 추적(Tracing)
+- 장애 감지 및 알림(Alert)
+- 성능 및 추세 분석
+
+MSA 환경에서는 서비스가 여러 개로 분산되어 있기 때문에  
+각 서비스의 상태를 통합적으로 수집하고 시각화하는 구조가 중요하다.
+
+---
+
+## 2. Prometheus란?
+
+Prometheus는 대표적인 오픈소스 모니터링 시스템이다.
+
+### 특징
+- 메트릭 수집 및 모니터링 지원
+- 알림(Alert) 기능 지원
+- 시계열(Time Series) 데이터 저장
+- Pull 방식 구조 사용
+- 다양한 Exporter 제공
+- CNCF 공식 프로젝트
+
+Prometheus는 Spring Boot Actuator와 Micrometer가 제공하는 메트릭 데이터를 수집한다.
+
+---
+
+## 3. CNCF와 Prometheus
+
+Prometheus는 2016년부터 CNCF(Cloud Native Computing Foundation)에서 관리되고 있다.
+
+- CNCF 첫 번째 공식 프로젝트: Kubernetes
+- CNCF 두 번째 공식 프로젝트: Prometheus
+
+즉, 클라우드 네이티브 환경에서 매우 중요한 모니터링 도구라는 의미이다.
+
+---
+
+## 4. Prometheus 동작 구조
+
+Prometheus는 각 서비스의 Actuator Endpoint로 접근하여 메트릭 정보를 수집한다.
+
+예시:
+- user-service
+- api-gateway
+- order-service
+
+수집된 데이터는 Time Series Database에 저장된다.
+
+<img width="2000" height="1414" alt="image" src="https://github.com/user-attachments/assets/f6a971be-3b12-4032-befc-a85b37c2f8e5" />
+
+---
+
+## 5. Spring Cloud + Prometheus 구조
+
+Spring Cloud 애플리케이션에서 다음과 같은 흐름으로 동작한다.
+
+1. Micrometer가 메트릭 생성
+2. Spring Boot Actuator가 메트릭 노출
+3. Prometheus가 메트릭 수집
+4. Grafana가 시각화
+
+### 이미지 위치
+![download_2.png]
+
+---
+
+## 6. Prometheus 설정 파일
+
+Prometheus 설치 후 `prometheus.yml` 파일에서 수집 대상을 지정한다.
+
+예시:
+```yaml
+scrape_configs:
+  - job_name: 'user-service'
+    scrape_interval: 15s
+    static_configs:
+      - targets:
+        - 'localhost:8000/user-service/actuator/prometheus'
+```
+
+### 핵심 포인트
+- API Gateway를 통해 접근 가능
+- 15초 간격으로 메트릭 수집
+- actuator/prometheus Endpoint 사용
+
+---
+
+## 7. Prometheus 실행 방법
+
+### Windows
+```bash
+prometheus.exe
+```
+
+### macOS / Linux
+```bash
+./prometheus --config.file=prometheus.yml
+```
+
+기본 포트:
+```text
+9090
+```
+
+Prometheus Dashboard:
+```text
+http://localhost:9090
+```
+
+### 이미지 위치
+![download_3.png]
+
+---
+
+## 8. Prometheus Dashboard 기능
+
+Prometheus Dashboard에서는 Expression 입력을 통해 메트릭을 조회할 수 있다.
+
+예시 메트릭:
+```text
+http_server_requests_seconds_count
+```
+
+확인 가능한 정보:
+- 요청 횟수
+- 응답 코드
+- 호출 API
+- 시간대별 트래픽
+- 누적 데이터
+
+그래프 탭을 통해 시간별 메트릭 시각화 가능
+
+### 이미지 위치
+![download_4.png]
+
+---
+
+## 9. Grafana란?
+
+Grafana는 데이터 시각화 오픈소스 플랫폼이다.
+
+### 특징
+- 대시보드 제공
+- 시계열 데이터 시각화
+- 다양한 플러그인 지원
+- Prometheus 연동 가능
+
+Grafana는 직접 데이터를 수집하지 않고  
+Prometheus가 저장한 데이터를 조회하여 시각화한다.
+
+---
+
+## 10. Grafana 설치
+
+Grafana 공식 사이트:
+- https://grafana.com
+
+다운로드 가능 플랫폼:
+- Windows
+- Linux
+- macOS
+- Docker
+
+### Windows 실행
+```bash
+grafana-server.exe
+```
+
+### macOS 실행
+```bash
+./grafana-server
+```
+
+기본 포트:
+```text
+3000
+```
+
+기본 계정:
+```text
+ID: admin
+PW: admin
+```
+
+### 이미지 위치
+![download_5.png]
+
+---
+
+## 11. Grafana + Prometheus 연동
+
+Grafana는 Prometheus를 데이터 소스로 등록하여 사용한다.
+
+동작 흐름:
+```text
+Spring Cloud
+   ↓
+Micrometer
+   ↓
+Actuator
+   ↓
+Prometheus
+   ↓
+Grafana Dashboard
+```
+
+이 구조를 통해 실시간 메트릭 모니터링이 가능하다.
+
+### 이미지 위치
+![download_6.png]
+
+---
+
+## 12. 핵심 정리
+
+| 항목 | 역할 |
+|---|---|
+| Micrometer | 메트릭 생성 |
+| Actuator | 메트릭 Endpoint 제공 |
+| Prometheus | 메트릭 수집 및 저장 |
+| Grafana | 데이터 시각화 |
+
+---
+
+## 최종 정리
+
+이번 강의에서는 MSA 환경에서 모니터링 시스템을 구축하기 위한 핵심 구성 요소인  
+Prometheus와 Grafana의 개념 및 동작 구조를 학습하였다.
+
+특히 다음 내용을 이해하는 것이 중요하다.
+
+- Prometheus는 메트릭을 수집하고 저장한다.
+- Grafana는 저장된 메트릭을 시각화한다.
+- Spring Boot Actuator와 Micrometer가 메트릭 제공 역할을 수행한다.
+- API Gateway를 통해 각 마이크로서비스의 메트릭 정보를 수집할 수 있다.
+
+향후 실습에서는 Docker 기반 환경에서 Prometheus와 Grafana를 실제로 연동하여  
+통합 모니터링 환경을 구성하게 된다.
 
 
 
