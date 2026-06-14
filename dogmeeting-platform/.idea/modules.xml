@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/chat-service/dogmeeting-platform.chat-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/chat-service/dogmeeting-platform.chat-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common-lib/dogmeeting-platform.common-lib.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common-lib/dogmeeting-platform.common-lib.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/config-service/dogmeeting-platform.config-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/config-service/dogmeeting-platform.config-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/discovery-service/dogmeeting-platform.discovery-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/discovery-service/dogmeeting-platform.discovery-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gateway-service/dogmeeting-platform.gateway-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/gateway-service/dogmeeting-platform.gateway-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/match-service/dogmeeting-platform.match-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/match-service/dogmeeting-platform.match-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/trust-service/dogmeeting-platform.trust-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/trust-service/dogmeeting-platform.trust-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-service/dogmeeting-platform.user-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user-service/dogmeeting-platform.user-service.main.iml" />
+    </modules>
+  </component>
+</project>

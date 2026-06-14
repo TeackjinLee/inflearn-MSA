@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.38/57f8f5e02e92a30fd21b80cbd426a4172b5f8e29/lombok-1.18.38.jar" />
+        </processorPath>
+        <module name="dogmeeting-platform.trust-service.main" />
+        <module name="dogmeeting-platform.gateway-service.main" />
+        <module name="dogmeeting-platform.user-service.main" />
+        <module name="dogmeeting-platform.match-service.main" />
+        <module name="dogmeeting-platform.discovery-service.main" />
+        <module name="dogmeeting-platform.chat-service.main" />
+        <module name="dogmeeting-platform.config-service.main" />
+        <module name="dogmeeting-platform.common-lib.main" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="17" />
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="dogmeeting-platform.chat-service" options="-parameters" />
+      <module name="dogmeeting-platform.chat-service.main" options="-parameters" />
+      <module name="dogmeeting-platform.chat-service.test" options="-parameters" />
+      <module name="dogmeeting-platform.config-service" options="-parameters" />
+      <module name="dogmeeting-platform.config-service.main" options="-parameters" />
+      <module name="dogmeeting-platform.config-service.test" options="-parameters" />
+      <module name="dogmeeting-platform.discovery-service" options="-parameters" />
+      <module name="dogmeeting-platform.discovery-service.main" options="-parameters" />
+      <module name="dogmeeting-platform.discovery-service.test" options="-parameters" />
+      <module name="dogmeeting-platform.gateway-service" options="-parameters" />
+      <module name="dogmeeting-platform.gateway-service.main" options="-parameters" />
+      <module name="dogmeeting-platform.gateway-service.test" options="-parameters" />
+      <module name="dogmeeting-platform.match-service" options="-parameters" />
+      <module name="dogmeeting-platform.match-service.main" options="-parameters" />
+      <module name="dogmeeting-platform.match-service.test" options="-parameters" />
+      <module name="dogmeeting-platform.trust-service" options="-parameters" />
+      <module name="dogmeeting-platform.trust-service.main" options="-parameters" />
+      <module name="dogmeeting-platform.trust-service.test" options="-parameters" />
+      <module name="dogmeeting-platform.user-service" options="-parameters" />
+      <module name="dogmeeting-platform.user-service.main" options="-parameters" />
+      <module name="dogmeeting-platform.user-service.test" options="-parameters" />
+    </option>
+  </component>
+</project>
